@@ -1,4 +1,6 @@
 using EtiqaFreelancerApi.DataContext;
+using EtiqaFreelancerApi.Interfaces;
+using EtiqaFreelancerApi.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,8 @@ builder.Services.AddCors(options =>
             builder.AllowAnyOrigin();
         });
 });
+
+builder.Services.AddScoped<IUser,UserRepository>();
 
 // Add services to the container.
 builder.Services.AddControllers();

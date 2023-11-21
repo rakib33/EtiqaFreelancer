@@ -13,7 +13,7 @@ namespace EtiqaFreelancerApi.DataContext
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-OC677T4;Initial Catalog=EtiqaFreelancerDB;Integrated Security=True");
             base.OnConfiguring(optionsBuilder);
         }
-        public DbSet<User>? Users { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
