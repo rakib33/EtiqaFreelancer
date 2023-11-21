@@ -5,6 +5,9 @@ namespace EtiqaFreelancerApi.DataContext
 {
     public class FreelancerContext : DbContext
     {
+        public FreelancerContext(DbContextOptions<FreelancerContext> options) : base(options)
+        {
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-OC677T4;Initial Catalog=EtiqaFreelancerDB;Integrated Security=True");
