@@ -44,10 +44,8 @@ Go to the next button and in Project Name section give project name EtiqaFreelan
 1. Create a Models folder and User.cs model class for freelancers.
 2. Add FreelancerContext.cs DbContext class and configure database connection.
 3. Add user db set in FreelancerContext.cs n OnModelCreating method.
-
-## Database Migration
-1. In this project I am using Microsoft SQL Server RDBMS.
-2. Database connection string is configure in FreelancerContext.cs
+4. In this project I am using Microsoft SQL Server RDBMS.
+5. Database connection string is configure in FreelancerContext.cs
    ```
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -55,10 +53,19 @@ Go to the next button and in Project Name section give project name EtiqaFreelan
             base.OnConfiguring(optionsBuilder);
         }
    ```
-3. In appsettings.json you can also mention the database connection string depends on your project purpose.
+6. In appsettings.json you can also mention the database connection string depends on your project purpose.
    But this is maybe harmful for project data security.
    ```
    "ConnectionStrings": {
     "DefaultConnection": "Data Source=DESKTOP-OC677T4;Initial Catalog=EtiqaFreelancerDB;Integrated Security=True"
     }
-  ```
+7. Create a basic BaseApiController.cs to write common task like logging.
+8. Create UsersController.cs controller that has GET,POST,PUT,DELETE verbs method accordingly Get all user,Add user, update user and delete user.
+9. Create an Interface named IUser and implement this in UserRepository.cs with below method.
+   - GetUsers [Get all user list]
+   - RegisterUser [Register or add a user]
+   - UpdateUser [Update an existing user]
+   - DeleteUser [Delete user]
+10. Now register this interface and repository and our database context in Program.cs file for Dependency Injection (DI).
+    ```
+    builder.Services.AddScoped<IUser,UserRepository>();
