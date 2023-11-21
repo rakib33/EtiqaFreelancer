@@ -74,9 +74,9 @@ Go to the next button and in Project Name section give project name EtiqaFreelan
 
  For database code first migration follow the command after configuring database connection string.
  
- 1.Open nuget package manager console.
+  1. Open nuget package manager console.
  
- 2.For initial migration run command
+  2. For initial migration run command
    ```
    Add-Migration InitialCreate
    ```
