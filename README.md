@@ -33,13 +33,32 @@ To get started developing a Web API in Visual Studio the first step is to create
 
 Go to the next button and in Project Name section give project name EtiqaFreelancer. Select Next for all comming page.Lets see the API project is created.
 
-# Install Package
+## Install Package
   - Install package Microsoft.EntityFrameworkCore version 6.0.14
   - Microsoft.EntityFrmaeworkCore Version-6.0.14
   - Microsoft.EntityFrmaeworkCore.SqlServer Version-6.0.14
   - Microsoft.EntityFrmaeworkCore.Tools Version-6.0.14
   - Microsoft.AspNetCore.Cors Version-2.2.0
     
-# Project Structure
+## Project Structure
 1. Create a Models folder and User.cs model class for freelancers.
-2. Add FreelancerContext.cs DbContext class
+2. Add FreelancerContext.cs DbContext class and configure database connection.
+3. Add user db set in FreelancerContext.cs n OnModelCreating method.
+
+## Database Migration
+1. In this project I am using Microsoft SQL Server RDBMS.
+2. Database connection string is configure in FreelancerContext.cs
+   ```
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-OC677T4;Initial Catalog=EtiqaFreelancerDB;Integrated Security=True");
+            base.OnConfiguring(optionsBuilder);
+        }
+   ```
+3. In appsettings.json you can also mention the database connection string depends on your project purpose.
+   But this is maybe harmful for project data security.
+   ```
+   "ConnectionStrings": {
+    "DefaultConnection": "Data Source=DESKTOP-OC677T4;Initial Catalog=EtiqaFreelancerDB;Integrated Security=True"
+    }
+  ```
