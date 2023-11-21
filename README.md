@@ -85,3 +85,5 @@ Go to the next button and in Project Name section give project name EtiqaFreelan
    ```
     Update-Database
    ```
+4. After any change on database model you need to run Add Migration command with appropriate migration nameand must update-database each time.
+   
