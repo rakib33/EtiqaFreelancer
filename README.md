@@ -77,13 +77,13 @@ Go to the next button and in Project Name section give project name EtiqaFreelan
   1. Open nuget package manager console.
  
   2. For initial migration run command
-   ```
-   Add-Migration InitialCreate
-   ```
+     ```
+     Add-Migration InitialCreate
+     ```
 3. Migration folder is created on project directory. But still database is not created on server.Need to update database, run below command.
 
-   ```
+    ```
     Update-Database
-   ```
+    ```
 4. After any change on database model you need to run Add Migration command with appropriate migration nameand must update-database each time.
    
