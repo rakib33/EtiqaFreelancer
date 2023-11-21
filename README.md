@@ -87,3 +87,23 @@ Go to the next button and in Project Name section give project name EtiqaFreelan
     ```
 4. After any change on database model you need to run Add Migration command with appropriate migration nameand must update-database each time.
    
+# Unit Test Project
+
+One xUnit test project is created to test our web api controler with moq data. For this you need to install unit test tools from nuget.
+
+## Install test packages
+
+   - Moq Version-4.20.69
+   - xunit Version-2.4.2
+   - unit.runner.visualstudio Version-2.4.5
+     
+## Users Controller Test
+ 
+ 1. Create a UsersControllerTest.cs to test all our UsersController method.
+ 2. In UsersControllerTest constructor all arrange task is done by passing ILogger and IUser Moq object.
+ 3. Write GetUserList_ReturnActionResult test method to test GET api.
+ 4. Write AddUser_ReturnActionResult test method to test RegisterUser api.
+ 5. Write UpdateUser_ReturnActionResult test methodto test UpdateUser api.
+ 6. Write DeleteUser_ReturnActionResult test method to test DeleteUser api.
+ 7. Now run the all test method to make sure all are passed successsfully.
+    
