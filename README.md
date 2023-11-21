@@ -24,3 +24,9 @@ A company create a developer network to build a list of freelancer.
     - Register a new user.
     - Update a register user details
     - Delete a register user.
+
+## Get started
+
+To get started developing a Web API in Visual Studio the first step is to create a new project. In Visual Studio 2022 you can create a new project using the New Project dialog. In this post we will create an ASP.NET Core Web API for Etiqa Freelancer project. To follow along this tutorial, create a project named EtiqaFreelancer with the following options selected in the Additional Information page.
+
+![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/84781584-ee9d-4d7d-9156-e0b426bde2ff)
