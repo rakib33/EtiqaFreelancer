@@ -70,10 +70,18 @@ Go to the next button and in Project Name section give project name EtiqaFreelan
     ```
     builder.Services.AddScoped<IUser,UserRepository>();
 
-# Database Migration
+## Database Migration
 
  For database code first migration follow the command after configuring database connection string.
+ 
  1.Open nuget package manager console.
+ 
  2.For initial migration run command
    ```
    Add-Migration InitialCreate
+   ```
+3. Migration folder is created on project directory. But still database is not created on server.Need to update database, run below command.
+
+   ```
+    Update-Database
+   ```
