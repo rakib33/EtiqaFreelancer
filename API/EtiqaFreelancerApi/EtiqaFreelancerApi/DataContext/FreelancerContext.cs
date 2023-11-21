@@ -13,7 +13,7 @@ namespace EtiqaFreelancerApi.DataContext
         public DbSet<User>? Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);      
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>(b => {
                 b.HasKey(l => l.Id);
                 b.ToTable("User");
