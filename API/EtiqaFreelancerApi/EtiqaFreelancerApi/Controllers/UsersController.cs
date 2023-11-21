@@ -1,5 +1,6 @@
 ﻿using EtiqaFreelancerApi.Common;
 using EtiqaFreelancerApi.DataContext;
+using EtiqaFreelancerApi.Interfaces;
 using EtiqaFreelancerApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +15,11 @@ namespace EtiqaFreelancerApi.Controllers
     [ApiController]
     public class UsersController : BaseApiController
     {
-        private readonly FreelancerContext _context;
-        public UsersController(FreelancerContext context, ILogger<BaseApiController> logger) : base(logger)
+        private readonly IUser _user;
+        public UsersController(IUser user, ILogger<BaseApiController> logger) : base(logger)
         {
-            _context = context;
+            _user = user;
         }
-               
 
         [HttpGet]
         [ResponseCache(Duration =60)]
@@ -27,7 +27,7 @@ namespace EtiqaFreelancerApi.Controllers
         {
             try
             {
-                var userList = await _context.Users.ToListAsync();
+                var userList = await _user.GetUsers();
                 return Ok(new { status = AppStatus.SuccessStatus, data = userList });
             }
             catch (Exception ex)
@@ -42,8 +42,7 @@ namespace EtiqaFreelancerApi.Controllers
         {
             try
             {
-                _context.Users.Add(user);
-                _context.SaveChanges();
+               var saveUser =  _user.AddUser(user);
                 return new JsonResult("Added Successfully");
             }
             catch (Exception ex)
@@ -57,24 +56,12 @@ namespace EtiqaFreelancerApi.Controllers
         {
             try
             {
-                User _user = _context.Users.Find(user.Id);
-                if (_user == null)
-                    return new JsonResult("No Data Found");
-
-                    _user.UserName = user.UserName;
-                    _user.PhoneNumber = user.PhoneNumber;
-                    _user.Email = user.Email;
-                    _user.Hobby = user.Hobby;
-                    _user.SkillSets = user.SkillSets;
-
-                    _context.Entry(_user).State = EntityState.Modified;
-                    _context.SaveChanges();
-
-                return new JsonResult("Deleted Successfully");
+                var updateUser = _user.UpdateUser(user);
+                return new JsonResult("Update Successfully");
             }
             catch (Exception)
             {
-                return new JsonResult("Deleted Failed");
+                return new JsonResult("Update Failed");
             }
 
         }
@@ -84,12 +71,7 @@ namespace EtiqaFreelancerApi.Controllers
         {
             try
             {
-                var user = _context.Users.Find(id);
-                if (user == null)
-                    return new JsonResult("No Data Found");
-                _context.Users.Remove(user);
-                _context.SaveChanges(true);
-
+                _user.DeleteUser(id);
                 return new JsonResult("Deleted Successfully");
             }
             catch (Exception)

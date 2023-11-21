@@ -49,7 +49,23 @@ namespace EtiqaFreelancerApi.Repositories
 
         public User UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                User _user = _context.Users.Find(user.Id);
+                _user.UserName = user.UserName;
+                _user.PhoneNumber = user.PhoneNumber;
+                _user.Email = user.Email;
+                _user.Hobby = user.Hobby;
+                _user.SkillSets = user.SkillSets;
+
+                _context.Entry(_user).State = EntityState.Modified;
+                _context.SaveChanges();
+                return _user;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
