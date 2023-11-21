@@ -38,45 +38,45 @@ namespace EtiqaFreelancerApi.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegisterUser([FromForm] User user)
+        public async Task<ActionResult> RegisterUser([FromForm] User user)
         {
             try
             {
-               var saveUser =  _user.AddUser(user);
-                return new JsonResult("Added Successfully");
+               User saveUser = await  _user.AddUser(user);
+                return Ok(new UserResponseModel { Status = AppStatus.SuccessStatus, Data = saveUser });
             }
             catch (Exception ex)
             {
-                return new JsonResult("Added Failed");
+                return Ok(new UserResponseModel { Status = AppStatus.ErrorStatus, Exception = ex});
             }
         }
 
         [HttpPut]
-        public JsonResult UpdateUser([FromForm] User user)
+        public async Task<ActionResult> UpdateUser([FromForm] User user)
         {
             try
             {
-                var updateUser = _user.UpdateUser(user);
-                return new JsonResult("Update Successfully");
+                var updateUser =  _user.UpdateUser(user);
+                return Ok(new UserResponseModel { Status = AppStatus.SuccessStatus, Data = updateUser });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new JsonResult("Update Failed");
+                return Ok(new UserResponseModel { Status = AppStatus.ErrorStatus, Exception = ex });
             }
 
         }
 
         [HttpDelete]
-        public JsonResult DeleteUser(int id)
+        public ActionResult DeleteUser(int id)
         {
             try
             {
                 _user.DeleteUser(id);
-                return new JsonResult("Deleted Successfully");
+                return Ok(new UserResponseModel { Status = AppStatus.SuccessStatus });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new JsonResult("Deleted Failed");
+                return Ok(new UserResponseModel { Status = AppStatus.ErrorStatus, Exception = ex });
             }
         }
     }

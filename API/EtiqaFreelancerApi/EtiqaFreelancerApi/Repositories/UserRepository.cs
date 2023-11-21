@@ -24,7 +24,26 @@ namespace EtiqaFreelancerApi.Repositories
                 throw;
             }           
         }
+        public User UpdateUser(User user)
+        {
+            try
+            {
+                User _user = _context.Users.Find(user.Id);
+                _user.UserName = user.UserName;
+                _user.PhoneNumber = user.PhoneNumber;
+                _user.Email = user.Email;
+                _user.Hobby = user.Hobby;
+                _user.SkillSets = user.SkillSets;
 
+                _context.Entry(_user).State = EntityState.Modified;
+                _context.SaveChangesAsync();
+                return _user;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public void DeleteUser(int id)
         {
             try
@@ -45,27 +64,6 @@ namespace EtiqaFreelancerApi.Repositories
         public async  Task<List<User>> GetUsers()
         {
            return await _context.Users.ToListAsync();
-        }
-
-        public User UpdateUser(User user)
-        {
-            try
-            {
-                User _user = _context.Users.Find(user.Id);
-                _user.UserName = user.UserName;
-                _user.PhoneNumber = user.PhoneNumber;
-                _user.Email = user.Email;
-                _user.Hobby = user.Hobby;
-                _user.SkillSets = user.SkillSets;
-
-                _context.Entry(_user).State = EntityState.Modified;
-                _context.SaveChanges();
-                return _user;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
     }
 }
