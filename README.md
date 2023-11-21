@@ -32,3 +32,14 @@ To get started developing a Web API in Visual Studio the first step is to create
 ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/84781584-ee9d-4d7d-9156-e0b426bde2ff)
 
 Go to the next button and in Project Name section give project name EtiqaFreelancer. Select Next for all comming page.Lets see the API project is created.
+
+# Install Package
+  - Install package Microsoft.EntityFrameworkCore version 6.0.14
+  - Microsoft.EntityFrmaeworkCore Version-6.0.14
+  - Microsoft.EntityFrmaeworkCore.SqlServer Version-6.0.14
+  - Microsoft.EntityFrmaeworkCore.Tools Version-6.0.14
+  - Microsoft.AspNetCore.Cors Version-2.2.0
+    
+# Project Structure
+1. Create a Models folder and User.cs model class for freelancers.
+2. Add FreelancerContext.cs DbContext class
