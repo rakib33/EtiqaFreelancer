@@ -32,11 +32,11 @@
                 var hobby = document.getElementById("hobby").value;
 
                 const formData = new FormData();
-                formData.append("UserName", userName);
-                formData.append("Email", email);
-                formData.append("PhoneNumber", phoneNumber);
-                formData.append("SkillSets", skill);
-                formData.append("Hobby", hobby);
+                formData.append("userName", userName);
+                formData.append("email", email);
+                formData.append("phoneNumber", phoneNumber);
+                formData.append("skillSets", skill);
+                formData.append("hobby", hobby);
                 console.log('user save api is called');
                 axios.post('http://localhost:5063/api/Users', formData).then(
                     (response) => {
@@ -44,9 +44,7 @@
                         console.log(response.data)
                         alert(response.data.status);
                     }
-                )
-
-                document.getElementById('myModal').modal('hide');
+                )        
             },
             async deletNewUser(id) {
                 console.log('id to be deleted' + id);
