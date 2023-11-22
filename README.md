@@ -118,4 +118,11 @@ One xUnit test project is created to test our web api controler with moq data. F
  5. Write UpdateUser_ReturnActionResult test methodto test UpdateUser api.
  6. Write DeleteUser_ReturnActionResult test method to test DeleteUser api.
  7. Now run the all test method to make sure all are passed successsfully.
-    
+
+## Deployment
+
+This project has several branches including Main and Deploy. Deploy has contains Heroku configuration to deploy our project on Heroku.
+And Main branch has local data storage.Hear we Use MS SQL Server.
+
+Heroku Project: https://freelancer33-f16a7093777b.herokuapp.com/
+
