@@ -53,9 +53,11 @@
                         console.log(response.data)                       
                         this.status = response.data.status
                         if (this.status === 'Success')
-                            this.refreshedData();
+                            alert('Delete Success');
                         else
                             alert('Delete failed');
+
+                        this.refreshedData();
                     }
                 )
             }
