@@ -26,10 +26,10 @@ A company create a developer network to build a list of freelancer.
     - Delete a register user.
       
 ## Technology Used
-
-    - ASP.NET CORE Web API
-    - MS SQL Server
-    - Vue.Js
+- ASP.NET Core Web API
+- Framework .Net 6
+- Database MS SQL Server
+- Vue.Js for UI
 
 ## Get started
 
