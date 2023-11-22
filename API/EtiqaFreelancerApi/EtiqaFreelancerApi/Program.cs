@@ -36,6 +36,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -43,8 +44,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+#region StartHtmlFile
+app.UseHttpsRedirection();
+var options = new DefaultFilesOptions();
+options.DefaultFileNames.Clear();
+options.DefaultFileNames.Add("mydefault.html");
+app.UseDefaultFiles(options);
+app.UseStaticFiles();
+app.UseRouting();
+#endregion
+
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
