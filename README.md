@@ -29,9 +29,21 @@ A company create a developer network to build a list of freelancer.
 
 To get started developing a Web API in Visual Studio the first step is to create a new project. In Visual Studio 2022 you can create a new project using the New Project dialog. In this post we will create an ASP.NET Core Web API for Etiqa Freelancer project. To follow along this tutorial, create a project named EtiqaFreelancer with the following options selected in the Additional Information page.
 
-![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/84781584-ee9d-4d7d-9156-e0b426bde2ff)
+![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/2423f9d2-c7f7-46d5-8275-763df29dab19)
 
-Go to the next button and in Project Name section give project name EtiqaFreelancer. Select Next for all comming page.Lets see the API project is created.
+Go to the next button and in Project Name section give project name EtiqaFreelancerApi. 
+
+![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/9e9897ec-eee2-4125-b1f5-0702200fbcfc)
+
+In the next page choose a .Net Framework . In this project I am using .NET 6.0 . You can also select Aunthentication type. Here is two type Authentication.
+ - Microsoft Identity Platform
+ - Windows
+
+![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/09a6e276-20a4-4b94-b235-dfc66bb630e8)
+
+After press the Create button Lets see the API project is created.The project infrastructure is looks like.
+
+![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/9ea5cd3d-32a9-4d66-82e5-514a3cde4a8f)
 
 ## Install Package
   - Install package Microsoft.EntityFrameworkCore version 6.0.14
