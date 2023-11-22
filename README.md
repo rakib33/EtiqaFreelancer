@@ -24,6 +24,12 @@ A company create a developer network to build a list of freelancer.
     - Register a new user.
     - Update a register user details
     - Delete a register user.
+      
+## Technology Used
+
+    - ASP.NET CORE Web API
+    - MS SQL Server
+    - Vue.Js
 
 ## Get started
 
