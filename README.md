@@ -84,7 +84,7 @@ After press the Create button Lets see the API project is created.The project in
 
 ## Database Migration
 
- For database code first migration follow the command after configuring database connection string.
+ MS SQL database is used for this project.Database code first migration follow the command after configuring database connection string.
  
   1. Open nuget package manager console.
  
