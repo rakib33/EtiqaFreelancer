@@ -1,7 +1,7 @@
 ﻿<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="module">
     import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-    const API_URL = "http://localhost:5063/";
+    const API_URL = "https://localhost:7222/";
 
     createApp({
         data() {
@@ -13,7 +13,7 @@
         }, methods: {
             async refreshedData() {
                 console.log('get method is called');
-                axios.get('http://localhost:5063/api/Users').then(
+                axios.get(API_URL+ 'api/Users').then(
                     (response) => {
                         console.log(response.data)
                         this.users = response.data.data;
@@ -38,26 +38,29 @@
                 formData.append("skillSets", skill);
                 formData.append("hobby", hobby);
                 console.log('user save api is called');
-                axios.post('http://localhost:5063/api/Users', formData).then(
-                    (response) => {
-                        this.refreshedData();
+
+                axios.post(API_URL + 'api/Users', formData)
+                    .then((response) => {
                         console.log(response.data)
                         alert(response.data.status);
-                    }
-                )        
+                        this.refreshedData();
+                    })
+                    
             },
-            async deletNewUser(id) {
+            async deleteNewUser(id) {
                 console.log('id to be deleted' + id);
-                axios.delete("http://localhost:5063/api/Users?id=" + id).then(
+                axios.delete(API_URL + "api/Users?id=" + id).then(
                     (response) => {
                         console.log(response.data)                       
                         this.status = response.data.status
                         if (this.status === 'Success')
-                            this.refreshedData();
+                            alert("Delete Successful");
                         else
                             alert('Delete failed');
                     }
                 )
+
+                this.refreshedData();
             }
         }, mounted: function () {
             console.log("mounted");
@@ -110,7 +113,7 @@
                     <td>{{user.phoneNumber}}</td>
                     <td>{{user.skillSets}}</td>
                     <td>{{user.hobby}}</td>
-                    <td> <button @click="deletNewUser(user.id)" class="btn btn-danger">Delete User</button></td>
+                    <td> <button @click="deleteNewUser(user.id)" class="btn btn-danger">Delete User</button></td>
                 </tr>
             </tbody>
         </table>

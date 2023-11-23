@@ -45,9 +45,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
 
-#region StartHtmlFile
 app.UseHttpsRedirection();
+#region StartHtmlFile
+
 var options = new DefaultFilesOptions();
 options.DefaultFileNames.Clear();
 options.DefaultFileNames.Add("mydefault.html");

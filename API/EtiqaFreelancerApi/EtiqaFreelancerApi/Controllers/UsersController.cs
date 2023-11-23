@@ -22,7 +22,7 @@ namespace EtiqaFreelancerApi.Controllers
         }
 
         [HttpGet]
-        [ResponseCache(Duration =60)]
+        [ResponseCache(Duration =1)]
         public async Task<ActionResult<List<User>>> Get()
         {
             try
