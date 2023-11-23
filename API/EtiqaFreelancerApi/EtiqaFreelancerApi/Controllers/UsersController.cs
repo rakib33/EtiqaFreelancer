@@ -2,6 +2,7 @@
 using EtiqaFreelancerApi.DataContext;
 using EtiqaFreelancerApi.Interfaces;
 using EtiqaFreelancerApi.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -11,6 +12,7 @@ using System.Data;
 
 namespace EtiqaFreelancerApi.Controllers
 {
+    [EnableCors("AllowAllOrigins")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : BaseApiController
@@ -21,6 +23,7 @@ namespace EtiqaFreelancerApi.Controllers
             _user = user;
         }
 
+        [DisableCors]
         [HttpGet]
         [ResponseCache(Duration =1)]
         public async Task<ActionResult<List<User>>> Get()

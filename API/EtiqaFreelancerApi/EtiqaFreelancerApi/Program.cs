@@ -21,9 +21,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            builder.AllowAnyOrigin()
+            builder.WithOrigins("https://freelancer33-f16a7093777b.herokuapp.com")
                  .AllowAnyMethod()
-                 .AllowAnyHeader();
+                 .AllowAnyHeader()
+                 .AllowCredentials();
         });
 });
 
@@ -38,7 +39,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseCors("AllowAllOrigins");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -61,7 +62,7 @@ app.UseDefaultFiles(options);
 app.UseStaticFiles();
 app.UseRouting();
 #endregion
-
+app.UseCors("AllowAllOrigins"); //must call after UseStaticFiles
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
