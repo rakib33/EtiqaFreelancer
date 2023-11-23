@@ -19,8 +19,8 @@ namespace EtiqaFreelancerApi.Models
         public string? Email { get; set; }
 
         [Required]
-        [MinLength(11)]
-        [MaxLength(13)]
+        //[MinLength(11)]
+        //[MaxLength(13)]
         [Phone(ErrorMessage = "Invalid phone number")]
         public string? PhoneNumber { get; set; }
 
