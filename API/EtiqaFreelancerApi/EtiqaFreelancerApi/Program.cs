@@ -1,7 +1,9 @@
 using EtiqaFreelancerApi.DataContext;
 using EtiqaFreelancerApi.Interfaces;
 using EtiqaFreelancerApi.Repositories;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +23,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            builder.WithOrigins("https://freelancer33-f16a7093777b.herokuapp.com")
+            builder.AllowAnyOrigin().WithOrigins("https://freelancer33-f16a7093777b.herokuapp.com")
                  .AllowAnyMethod()
                  .AllowAnyHeader()
                  .AllowCredentials();
@@ -55,10 +57,10 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 #region StartHtmlFile
 
-var options = new DefaultFilesOptions();
-options.DefaultFileNames.Clear();
-options.DefaultFileNames.Add("mydefault.html");
-app.UseDefaultFiles(options);
+//var options = new DefaultFilesOptions();
+//options.DefaultFileNames.Clear();
+//options.DefaultFileNames.Add("mydefault.html");
+//app.UseDefaultFiles(options);
 app.UseStaticFiles();
 app.UseRouting();
 #endregion

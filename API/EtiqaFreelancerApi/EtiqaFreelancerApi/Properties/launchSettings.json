@@ -4,9 +4,9 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      //"applicationUrl": "http://localhost:50882",
-      "applicationUrl": "https://freelancer33-f16a7093777b.herokuapp.com/",
-      "sslPort": 44359
+      "applicationUrl": "http://localhost:50882",
+      //"applicationUrl": "https://freelancer33-f16a7093777b.herokuapp.com/",
+      "sslPort": 0
     }
   },
   "profiles": {
@@ -14,9 +14,9 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "", //swagger
-      //"applicationUrl": "https://localhost:7222;http://localhost:5063",
-      "applicationUrl": "https://freelancer33-f16a7093777b.herokuapp.com/",
+      "launchUrl": "swagger", //swagger
+      "applicationUrl": "https://localhost:7222;http://localhost:5063",
+      //"applicationUrl": "https://freelancer33-f16a7093777b.herokuapp.com/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -24,7 +24,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      //"launchUrl": "swagger",
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
