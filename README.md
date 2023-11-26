@@ -128,7 +128,31 @@ One xUnit test project is created to test our web api controler with moq data. F
 ## Deployment
 
 This project has several branches including Main and Deploy. Deploy has contains Heroku configuration to deploy our project on Heroku.
-And Main branch has local data storage.Hear we Use MS SQL Server.
+And Main branch has local data storage.Hear we Use MS SQL Server. Heroku Project: https://freelancer33-f16a7093777b.herokuapp.com/
 
-Heroku Project: https://freelancer33-f16a7093777b.herokuapp.com/
+1. Create an account on Heroku and Login.
+2. Create an app using Create New App
+
+   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/111205ed-9607-4366-872d-ee9fb5c84712)
+
+3. Give a project name and Click Create App button.
+
+   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/4dcda2da-4a34-41be-8079-de3dda796b53)
+
+5. Go to Resources and select a Database. I am using MS SQL Database for this project.
+
+   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/19716dc9-cc20-4784-b88d-d97c4fed99ff)
+
+6. Click the selected Database and it will open in new browser . Select View Config.
+
+   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/68d1dbf3-6d57-49a8-a078-6200b5f5cc7f)
+ 
+ 7. click View config to get database connection string .
+
+    ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/28491d00-a9b7-4beb-b27d-2b64c1899bb1)
+ 
+
+
+
+
 
