@@ -151,6 +151,22 @@ And Main branch has local data storage.Hear we Use MS SQL Server. Heroku Project
 
     ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/28491d00-a9b7-4beb-b27d-2b64c1899bb1)
  
+ 8. Now configure this Database connection string to our project . Opne appsettings and add database connection string . you can also add this connection on code side.
+
+    ```
+      {
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft.AspNetCore": "Warning"
+        }
+      },
+      "AllowedHosts": "*",
+      "ConnectionStrings": {
+        "DefaultConnection": "Data Source=<Host Name>;Initial Catalog=<Database Name>;User ID=<User ID>;Password=*********;Integrated Security=False"
+    
+      }
+     }
 
 
 
