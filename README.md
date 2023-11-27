@@ -189,8 +189,9 @@ After press the Create button Lets see the API project is created.The project in
         public void DeleteUser(int id);
     }
     ```
-  UserRepository.cs
-    ```
+   UserRepository.cs
+
+   ```
       public class UserRepository : IUser
         {
             FreelancerContext _context;
