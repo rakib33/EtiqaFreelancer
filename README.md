@@ -59,15 +59,76 @@ After press the Create button Lets see the API project is created.The project in
   - Microsoft.AspNetCore.Cors Version-2.2.0
     
 ## Project Structure
-1. Create a Models folder and User.cs model class for freelancers.
-2. Add FreelancerContext.cs DbContext class and configure database connection.
-3. Add user db set in FreelancerContext.cs n OnModelCreating method.
-4. In this project I am using Microsoft SQL Server RDBMS.
+1. Create a Models folder and User.cs class for freelancers user.
+   ```
+    public class User
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int? Id { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string? UserName { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        public string? Email { get; set; }
+
+        [Required]
+        [MinLength(11)]
+        [MaxLength(13)]
+        [Phone(ErrorMessage = "Invalid phone number")]
+        public string? PhoneNumber { get; set; }
+
+        [Required]
+        public string? SkillSets   { get; set; }
+
+        [Required]
+        public string? Hobby { get; set; }
+
+    }
+   ```
+
+2. Add FreelancerContext.cs class on DbContext folder and configure database connection on.
+    ```
+    using EtiqaFreelancerApi.Models;
+    using Microsoft.EntityFrameworkCore;
+    
+    namespace EtiqaFreelancerApi.DataContext
+    {
+        public class FreelancerContext : DbContext
+        {
+            public FreelancerContext(DbContextOptions<FreelancerContext> options) : base(options)
+            {
+            }
+            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            {
+                optionsBuilder.UseSqlServer("Data Source=<YourDataSource>;Initial Catalog=<DatabaseName>;User ID=<UserName>;Password=****;Integrated Security=False");
+                base.OnConfiguring(optionsBuilder);
+            }
+            public DbSet<User> Users { get; set; }
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                base.OnModelCreating(modelBuilder);
+                modelBuilder.Entity<User>(b => {
+                    b.HasKey(l => l.Id);
+                    b.ToTable("User");
+                });
+            }
+        }
+    }
+
+    ```
+
+3. Add user db set in FreelancerContext.cs  OnModelCreating method.
+4. In this project I am using Microsoft SQL Server database
 5. Database connection string is configure in FreelancerContext.cs
    ```
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-OC677T4;Initial Catalog=EtiqaFreelancerDB;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Data Source=<YourDataSource>;Initial Catalog=<DatabaseName>;User ID=<UserName>;Password=****;Integrated Security=False");
             base.OnConfiguring(optionsBuilder);
         }
    ```
@@ -75,16 +136,134 @@ After press the Create button Lets see the API project is created.The project in
    But this is maybe harmful for project data security.
    ```
    "ConnectionStrings": {
-    "DefaultConnection": "Data Source=DESKTOP-OC677T4;Initial Catalog=EtiqaFreelancerDB;Integrated Security=True"
+    "DefaultConnection": "Data Source=<YourDataSource>;Initial Catalog=<DatabaseName>;User ID=<UserName>;Password=****;Integrated Security=False"
     }
 7. Create a basic BaseApiController.cs to write common task like logging.
-8. Create UsersController.cs controller that has GET,POST,PUT,DELETE verbs method accordingly Get all user,Add user, update user and delete user.
-9. Create an Interface named IUser and implement this in UserRepository.cs with below method.
+   ```
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BaseApiController : ControllerBase
+    {
+        private readonly ILogger<BaseApiController> _logger;
+
+        public BaseApiController(ILogger<BaseApiController> logger)
+        {
+            _logger = logger;
+        }
+
+        // Common method for logging
+        protected void LogInformation(string message)
+        {
+            _logger.LogInformation(message);
+        }
+
+        // Common method for logging errors
+        protected void LogError(string message)
+        {
+            _logger.LogError(message);
+        }
+
+        // Common method for handling bad requests with custom error message
+        protected ActionResult BadRequest(string errorMessage)
+        {
+            LogError(errorMessage);
+            return base.BadRequest(new { error = errorMessage });
+        }
+    }
+   ```
+
+
+8. Create an Interface named IUser in Interfaces folder and implement this in UserRepository.cs class in Repositories folder with below method.
    - GetUsers [Get all user list]
    - RegisterUser [Register or add a user]
    - UpdateUser [Update an existing user]
    - DeleteUser [Delete user]
-10. Now register this interface and repository and our database context in Program.cs file for Dependency Injection (DI).
+
+   IUser.cs
+    ```
+    public interface IUser
+    {
+        public Task<List<User>> GetUsers();
+        public Task<User> AddUser(User user);
+        public User UpdateUser(User user);
+        public void DeleteUser(int id);
+    }
+    ```
+  UserRepository.cs
+  ```
+  public class UserRepository : IUser
+    {
+        FreelancerContext _context;
+        public UserRepository(FreelancerContext freelancerContext) { 
+            _context = freelancerContext;
+        }
+        public async Task<User> AddUser(User user)
+        {
+            try
+            {
+                await  _context.Users.AddAsync(user);
+                 _context.SaveChanges();
+                return user;
+            }
+            catch (Exception)
+            {
+                throw;
+            }           
+        }
+        public User UpdateUser(User user)
+        {
+            try
+            {
+                User _user = _context.Users.Find(user.Id);
+                _user.UserName = user.UserName;
+                _user.PhoneNumber = user.PhoneNumber;
+                _user.Email = user.Email;
+                _user.Hobby = user.Hobby;
+                _user.SkillSets = user.SkillSets;
+
+                _context.Entry(_user).State = EntityState.Modified;
+                _context.SaveChangesAsync();
+                return _user;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void DeleteUser(int id)
+        {
+            try
+            {
+                var user = _context.Users.Find(id);
+                if (user != null)
+                {
+                    _context.Users.Remove(user);
+                    _context.SaveChanges(true);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }          
+        }
+
+        public async  Task<List<User>> GetUsers()
+        {
+            try
+            {
+                return await _context.Users.ToListAsync();
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+          
+        }
+    }
+ ```
+
+10. Create UsersController.cs controller that has GET,POST,PUT,DELETE verbs method accordingly Get all user,Add user, update user and delete user.
+11. Now register this interface and repository and our database context in Program.cs file for Dependency Injection (DI).
     ```
     builder.Services.AddScoped<IUser,UserRepository>();
 
