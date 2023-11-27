@@ -432,7 +432,7 @@ One xUnit test project is created to test our web api controler with moq data. F
         public async void AddUser_ReturnActionResult()
         {
             //Arrange
-            var userModel = Mock.Of<User>(x=>x.UserName =="Rakibul Islam" && x.Email =="rakib33mbstu@gmail.com" && x.Hobby=="Travelling" && x.SkillSets == "ASP.NET 
+            var userModel = Mock.Of<User>(x=>x.UserName =="Rakibul Islam" && x.Email =="rakib@gmail.com" && x.Hobby=="Travelling" && x.SkillSets == "ASP.NET 
             Core");
             //Act
             var result = await _usersController.RegisterUser(userModel);   
@@ -450,7 +450,7 @@ One xUnit test project is created to test our web api controler with moq data. F
         public async void UpdateUser_ReturnActionResult()
         {
             //Arrange
-            var userModel = Mock.Of<User>(x => x.Id ==1 && x.UserName == "Rakibul Islam" && x.Email == "rakib33mbstu@gmail.com" && x.Hobby == "Travelling" && 
+            var userModel = Mock.Of<User>(x => x.Id ==1 && x.UserName == "Rakibul Islam" && x.Email == "rakib@gmail.com" && x.Hobby == "Travelling" && 
             x.SkillSets == "ASP.NET Core");
             //Act
             var result = await _usersController.UpdateUser(userModel);
@@ -468,7 +468,7 @@ One xUnit test project is created to test our web api controler with moq data. F
         public async void DeleteUser_ReturnActionResult()
         {
             //Arrange
-            User userModel = Mock.Of<User>(x => x.Id == 1 && x.UserName == "Rakibul Islam" && x.Email == "rakib33mbstu@gmail.com" && x.Hobby == "Travelling" &&     
+            User userModel = Mock.Of<User>(x => x.Id == 1 && x.UserName == "Rakibul Islam" && x.Email == "rakib@gmail.com" && x.Hobby == "Travelling" &&     
             x.SkillSets == "ASP.NET Core");
             //Act     
             var result = _usersController.DeleteUser((int)userModel.Id);
