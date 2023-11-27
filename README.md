@@ -2,7 +2,7 @@
 
 This is ASP.NET Core Web API sample project of a list of data of Freelancer users.
 This is a complete Web Api project to register, delete ,update and get all freelancer.
-
+Project link: https://freelancer33-f16a7093777b.herokuapp.com/
 
 ## Project Summary
 
