@@ -190,77 +190,77 @@ After press the Create button Lets see the API project is created.The project in
     }
     ```
   UserRepository.cs
-  ```
-  public class UserRepository : IUser
-    {
-        FreelancerContext _context;
-        public UserRepository(FreelancerContext freelancerContext) { 
-            _context = freelancerContext;
-        }
-        public async Task<User> AddUser(User user)
+    ```
+      public class UserRepository : IUser
         {
-            try
-            {
-                await  _context.Users.AddAsync(user);
-                 _context.SaveChanges();
-                return user;
+            FreelancerContext _context;
+            public UserRepository(FreelancerContext freelancerContext) { 
+                _context = freelancerContext;
             }
-            catch (Exception)
+            public async Task<User> AddUser(User user)
             {
-                throw;
-            }           
-        }
-        public User UpdateUser(User user)
-        {
-            try
-            {
-                User _user = _context.Users.Find(user.Id);
-                _user.UserName = user.UserName;
-                _user.PhoneNumber = user.PhoneNumber;
-                _user.Email = user.Email;
-                _user.Hobby = user.Hobby;
-                _user.SkillSets = user.SkillSets;
-
-                _context.Entry(_user).State = EntityState.Modified;
-                _context.SaveChangesAsync();
-                return _user;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        public void DeleteUser(int id)
-        {
-            try
-            {
-                var user = _context.Users.Find(id);
-                if (user != null)
+                try
                 {
-                    _context.Users.Remove(user);
-                    _context.SaveChanges(true);
+                    await  _context.Users.AddAsync(user);
+                     _context.SaveChanges();
+                    return user;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }           
+            }
+            public User UpdateUser(User user)
+            {
+                try
+                {
+                    User _user = _context.Users.Find(user.Id);
+                    _user.UserName = user.UserName;
+                    _user.PhoneNumber = user.PhoneNumber;
+                    _user.Email = user.Email;
+                    _user.Hobby = user.Hobby;
+                    _user.SkillSets = user.SkillSets;
+    
+                    _context.Entry(_user).State = EntityState.Modified;
+                    _context.SaveChangesAsync();
+                    return _user;
+                }
+                catch (Exception)
+                {
+                    throw;
                 }
             }
-            catch (Exception)
+            public void DeleteUser(int id)
             {
-                throw;
-            }          
-        }
-
-        public async  Task<List<User>> GetUsers()
-        {
-            try
-            {
-                return await _context.Users.ToListAsync();
+                try
+                {
+                    var user = _context.Users.Find(id);
+                    if (user != null)
+                    {
+                        _context.Users.Remove(user);
+                        _context.SaveChanges(true);
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }          
             }
-            catch (System.Exception)
+    
+            public async  Task<List<User>> GetUsers()
             {
-                throw;
+                try
+                {
+                    return await _context.Users.ToListAsync();
+                }
+                catch (System.Exception)
+                {
+                    throw;
+                }
+              
             }
-          
         }
-    }
- ```
+      ```
 
 10. Now register this interface and repository and our database context in Program.cs file for Dependency Injection (DI). Also add cors and caching.
     ```
@@ -396,12 +396,89 @@ One xUnit test project is created to test our web api controler with moq data. F
      
 ## Users Controller Test
  
- 1. Create a UsersControllerTest.cs to test all our UsersController method.
- 2. In UsersControllerTest constructor all arrange task is done by passing ILogger and IUser Moq object.
+ 1. Create a xUnit Test Project named EtiqaFreelancerApi.Test and add class UsersControllerTest.cs to test all our UsersController method.
+ 2. In UsersControllerTest constructor arrange all dependencies using Moq object.
+     ```
+        private readonly UsersController _usersController;
+        //Moq
+        private readonly Mock<IUser> _user;
+        private readonly Mock<ILogger<BaseApiController>> _logger;
+        public UsersControllerTest()
+        {
+            _user = new Mock<IUser>();
+            _logger= new Mock<ILogger<BaseApiController>>();
+            _usersController = new UsersController(_user.Object,_logger.Object);
+        }
+     ```
  3. Write GetUserList_ReturnActionResult test method to test GET api.
+     ```
+       [Fact]
+        public void GetUserList_ReturnActionResult()
+        {
+            //Arrange
+            var ExpectedResut = new List<User> { };
+            //act
+            var result = _usersController.Get();
+            //assert
+            Assert.NotNull(result);    
+            Assert.IsAssignableFrom<Task<ActionResult<List<User>>>>(result);            
+        }
+     ```
+ 
  4. Write AddUser_ReturnActionResult test method to test RegisterUser api.
+    ```
+        [Fact]
+        public async void AddUser_ReturnActionResult()
+        {
+            //Arrange
+            var userModel = Mock.Of<User>(x=>x.UserName =="Rakibul Islam" && x.Email =="rakib33mbstu@gmail.com" && x.Hobby=="Travelling" && x.SkillSets == "ASP.NET 
+            Core");
+            //Act
+            var result = await _usersController.RegisterUser(userModel);   
+            //Assert
+            Assert.NotNull(result);
+            //assert            
+            var okObjectResult = Assert.IsType<OkObjectResult>(result);
+            var resultValue = Assert.IsType<UserResponseModel>(okObjectResult.Value);
+            Assert.True(resultValue.Status == AppStatus.SuccessStatus);
+        }
+    ```
  5. Write UpdateUser_ReturnActionResult test methodto test UpdateUser api.
+    ```
+        [Fact]
+        public async void UpdateUser_ReturnActionResult()
+        {
+            //Arrange
+            var userModel = Mock.Of<User>(x => x.Id ==1 && x.UserName == "Rakibul Islam" && x.Email == "rakib33mbstu@gmail.com" && x.Hobby == "Travelling" && 
+            x.SkillSets == "ASP.NET Core");
+            //Act
+            var result = await _usersController.UpdateUser(userModel);
+            //Assert
+            Assert.NotNull(result);
+            //assert            
+            var okObjectResult = Assert.IsType<OkObjectResult>(result);
+            var resultValue = Assert.IsType<UserResponseModel>(okObjectResult.Value);
+            Assert.True(resultValue.Status == AppStatus.SuccessStatus);
+        }
+    ```
  6. Write DeleteUser_ReturnActionResult test method to test DeleteUser api.
+    ```
+        [Fact]
+        public async void DeleteUser_ReturnActionResult()
+        {
+            //Arrange
+            User userModel = Mock.Of<User>(x => x.Id == 1 && x.UserName == "Rakibul Islam" && x.Email == "rakib33mbstu@gmail.com" && x.Hobby == "Travelling" &&     
+            x.SkillSets == "ASP.NET Core");
+            //Act     
+            var result = _usersController.DeleteUser((int)userModel.Id);
+            //Assert
+            Assert.NotNull(result);
+            //assert            
+            var okObjectResult = Assert.IsType<OkObjectResult>(result);
+            var resultValue = Assert.IsType<UserResponseModel>(okObjectResult.Value);
+            Assert.True(resultValue.Status == AppStatus.SuccessStatus);
+        }
+    ```
  7. Now run the all test method to make sure all are passed successsfully.
 
 ## Deployment
