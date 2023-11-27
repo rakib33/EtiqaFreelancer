@@ -262,11 +262,111 @@ After press the Create button Lets see the API project is created.The project in
     }
  ```
 
-10. Create UsersController.cs controller that has GET,POST,PUT,DELETE verbs method accordingly Get all user,Add user, update user and delete user.
-11. Now register this interface and repository and our database context in Program.cs file for Dependency Injection (DI).
+10. Now register this interface and repository and our database context in Program.cs file for Dependency Injection (DI). Also add cors and caching.
     ```
+    //Configure database context
+    builder.Services.AddDbContext<FreelancerContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlServerOptionsAction: sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 10,
+                maxRetryDelay: TimeSpan.FromSeconds(5),
+             errorNumbersToAdd: null);
+        }));
+    
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAllOrigins",
+            builder =>
+            {
+                builder.AllowAnyOrigin().WithOrigins("https://freelancer33-f16a7093777b.herokuapp.com")
+                     .AllowAnyMethod()
+                     .AllowAnyHeader()
+                     .AllowCredentials();
+            });
+    });
+    
     builder.Services.AddScoped<IUser,UserRepository>();
+    
+    // Add services to the container.
+    builder.Services.AddControllers();
+    builder.Services.AddResponseCaching();
+    ```
+11. Create UsersController.cs controller that has GET,POST,PUT,DELETE verbs method accordingly Get all user,Add user, update user and delete user.
+    ```
+    [EnableCors("AllowAllOrigins")]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UsersController : BaseApiController
+    {
+        private readonly IUser _user;
+        public UsersController(IUser user, ILogger<BaseApiController> logger) : base(logger)
+        {
+            _user = user;
+        }
 
+        [DisableCors]
+        [HttpGet]
+        [ResponseCache(Duration =1)]
+        public async Task<ActionResult<List<User>>> Get()
+        {
+            try
+            {
+                var userList = await _user.GetUsers();
+                return Ok(new { status = AppStatus.SuccessStatus, data = userList });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { status = AppStatus.ErrorStatus, data = ex });
+            }       
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RegisterUser([FromForm] User user)
+        {
+            try
+            {
+               User saveUser = await  _user.AddUser(user);
+                return Ok(new UserResponseModel { Status = AppStatus.SuccessStatus, Data = saveUser });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new UserResponseModel { Status = AppStatus.ErrorStatus, Exception = ex});
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser([FromForm] User user)
+        {
+            try
+            {
+                var updateUser =  _user.UpdateUser(user);
+                return Ok(new UserResponseModel { Status = AppStatus.SuccessStatus, Data = updateUser });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new UserResponseModel { Status = AppStatus.ErrorStatus, Exception = ex });
+            }
+
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteUser(int id)
+        {
+            try
+            {
+                _user.DeleteUser(id);
+                return Ok(new UserResponseModel { Status = AppStatus.SuccessStatus });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new UserResponseModel { Status = AppStatus.ErrorStatus, Exception = ex });
+            }
+        }
+    }
+    ```
 ## Database Migration
 
  MS SQL database is used for this project.Database code first migration follow the command after configuring database connection string.
