@@ -57,10 +57,10 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 #region StartHtmlFile
 
-//var options = new DefaultFilesOptions();
-//options.DefaultFileNames.Clear();
-//options.DefaultFileNames.Add("mydefault.html");
-//app.UseDefaultFiles(options);
+var options = new DefaultFilesOptions();
+options.DefaultFileNames.Clear();
+options.DefaultFileNames.Add("mydefault.html");
+app.UseDefaultFiles(options);
 app.UseStaticFiles();
 app.UseRouting();
 #endregion
