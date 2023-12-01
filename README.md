@@ -1,4 +1,4 @@
-# Freelancer user app using ASP.NET Core Web API(.Net 6) and Vue.js
+# Simple user crud app using ASP.NET Core Web API(.Net 6) and Vue.js repository pattern and xUnit test
 
 This is ASP.NET Core Web API sample project of a list of data of Freelancer users.
 This is a complete Web Api project to register, delete ,update and get all freelancer.
