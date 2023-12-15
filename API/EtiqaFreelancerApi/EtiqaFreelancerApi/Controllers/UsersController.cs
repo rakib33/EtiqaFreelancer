@@ -45,7 +45,25 @@ namespace EtiqaFreelancerApi.Controllers
         {
             try
             {
-               User saveUser = await  _user.AddUser(user);
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("wwwroot", "uploads");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (file.Length > 0)
+                {
+                    var fileName = Path.Combine(pathToSave, file.FileName);
+                    using (var stream = new FileStream(fileName, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    //return Ok(new { fileName });
+                }
+                //else
+                //{
+                //    return BadRequest();
+                //}
+                User saveUser = await  _user.AddUser(user);
                 return Ok(new UserResponseModel { Status = AppStatus.SuccessStatus, Data = saveUser });
             }
             catch (Exception ex)

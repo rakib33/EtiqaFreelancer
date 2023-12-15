@@ -63,7 +63,15 @@ namespace EtiqaFreelancerApi.Repositories
 
         public async  Task<List<User>> GetUsers()
         {
-           return await _context.Users.ToListAsync();
+            try
+            {
+                return await _context.Users.ToListAsync();
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+          
         }
     }
 }

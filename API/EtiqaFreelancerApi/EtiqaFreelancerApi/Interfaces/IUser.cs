@@ -8,6 +8,5 @@ namespace EtiqaFreelancerApi.Interfaces
         public Task<User> AddUser(User user);
         public User UpdateUser(User user);
         public void DeleteUser(int id);
-
     }
 }
