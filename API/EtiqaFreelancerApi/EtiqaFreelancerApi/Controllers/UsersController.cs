@@ -9,6 +9,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Data;
+using System.IO;
 
 namespace EtiqaFreelancerApi.Controllers
 {
@@ -45,30 +46,57 @@ namespace EtiqaFreelancerApi.Controllers
         {
             try
             {
-                var file = Request.Form.Files[0];
+                //var file = Request.Form.Files[0]; //for single file
+                var formFiles = Request.Form.Files; //Request.Form.Files .get all file
                 var folderName = Path.Combine("wwwroot", "uploads");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
-                if (file.Length > 0)
-                {
-                    var fileName = Path.Combine(pathToSave, file.FileName);
-                    using (var stream = new FileStream(fileName, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
+                //if (file.Length > 0)
+                //{
+                //    var fileName = Path.Combine(pathToSave, file.FileName);
+                //    using (var stream = new FileStream(fileName, FileMode.Create))
+                //    {
+                //        file.CopyTo(stream);
+                //    }
 
-                    //return Ok(new { fileName });
-                }
+                //    return Ok(new { fileName });
+                //}
                 //else
                 //{
                 //    return BadRequest();
                 //}
+                foreach (var formFile in formFiles)
+                {
+                    if (formFile.Length > 0)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await formFile.CopyToAsync(memoryStream);
+
+                            // Convert the IFormFile to a byte array
+                            var fileData = memoryStream.ToArray();
+
+                            // Save the file data to the database
+                            //var fileModel = new FileModel
+                            //{
+                            //    FileName = formFile.FileName,
+                            //    FileData = fileData
+                            //};
+
+                            user.FileName = formFile.FileName;
+                            user.FileData = fileData;
+                            //_dbContext.Files.Add(fileModel);
+                            //_dbContext.SaveChanges();
+                        }
+                    }
+                }
                 User saveUser = await  _user.AddUser(user);
                 return Ok(new UserResponseModel { Status = AppStatus.SuccessStatus, Data = saveUser });
             }
             catch (Exception ex)
             {
-                return Ok(new UserResponseModel { Status = AppStatus.ErrorStatus, Exception = ex});
+                return StatusCode(500, $"Internal server error: {ex}");
+              //  return Ok(new UserResponseModel { Status = AppStatus.ErrorStatus, Exception = ex});
             }
         }
 
