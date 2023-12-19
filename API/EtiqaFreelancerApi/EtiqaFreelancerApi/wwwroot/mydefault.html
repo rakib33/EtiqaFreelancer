@@ -129,7 +129,7 @@
                     <th>Phone Number</th>
                     <th>Skills</th>
                     <th>Hobby</th>                   
-                    <!--<th></th>-->
+                    <th>File Name</th>
                     <th></th>
                 </tr>
             </thead>
@@ -141,6 +141,7 @@
                     <td>{{user.phoneNumber}}</td>
                     <td>{{user.skillSets}}</td>
                     <td>{{user.hobby}}</td>
+                    <td>{{user.fileName}}</td>
                     <!--<td> <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" @click="UpdateUser(user.id,index)">Update User</button></td>-->
                     <td> <button @click="deleteNewUser(user.id)" class="btn btn-danger">Delete User</button></td>
                 </tr>
@@ -184,15 +185,15 @@
                                 <textarea class="form-control" id="hobby" placeholder="" name="hobby"></textarea>
 
                             </div>
-                            <!--<div class="row mb-3">
+                            <div class="row mb-3">
                                 <label for="pwd">Upload User Image:</label>
                                 <div class="col-sm-8">
                                     <input type="file" @change="handleFileUpload" accept="image/*" />
                                 </div>
-                                <div class="col-sm-8" id="preview">
+                                <div class="col-sm-8 mt-3" id="preview">
                                     <img height="200" width="200" style="justify-content:center; align-items:center;" v-if="url" :src="url" />
                                 </div>
-                            </div>-->
+                            </div>
                             <button type="submit" class="btn btn-primary" @click="addNewUser()">Submit</button>
 
                         </div>

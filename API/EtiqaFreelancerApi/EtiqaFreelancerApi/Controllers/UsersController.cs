@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.IO;
+using System.Net;
 
 namespace EtiqaFreelancerApi.Controllers
 {
@@ -32,6 +33,10 @@ namespace EtiqaFreelancerApi.Controllers
             try
             {
                 var userList = await _user.GetUsers();
+                if(userList == null || userList.Count == 0)
+                {
+                    return Ok(HttpStatusCode.NotFound);
+                }
                 return Ok(new { status = AppStatus.SuccessStatus, data = userList });
             }
             catch (Exception ex)
