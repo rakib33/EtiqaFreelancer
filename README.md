@@ -482,6 +482,41 @@ One xUnit test project is created to test our web api controler with moq data. F
     ```
  7. Now run the all test method to make sure all are passed successsfully.
 
+## Create vue.js client project
+
+We are using vue.js for this application. you need to install node js and then vue cli.
+Download node js and install from here https://nodejs.org/en/download/current
+open root directory and run cmd .check the npm version by using this command.
+
+D:\PROJECT Asp.NetCore\Freelancer>npm -v
+9.6.0
+
+Now I will install vue cli globally on Freelancer directory by running below command.
+```
+npm install -g @vue/cli
+```
+Check the vuejs version .
+vue -V
+@vue/cli 5.0.8
+
+now I want to create my client project named vue-client, run the below command
+
+```
+vue create vue-client
+```
+While run  the above command it will ask which version you want to install. I am selected Vue 3 version.
+
+Vue CLI v5.0.8
+? Please pick a preset:
+> Default ([Vue 3] babel, eslint)
+  Default ([Vue 2] babel, eslint)
+  Manually select features
+
+now run or build the project.
+```
+npm run serve
+```
+
 ## Deployment
 
 This project has several branches including Main and Deploy. Deploy has contains Heroku configuration to deploy our project on Heroku.
