@@ -11,24 +11,24 @@ namespace EtiqaFreelancerApi.Models
 
         [Required]
         [MaxLength(50)]
-        public string? UserName { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [MaxLength(50)]
         [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
         [Required]
         //[MinLength(11)]
         //[MaxLength(13)]
         [Phone(ErrorMessage = "Invalid phone number")]
-        public string? PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required]
-        public string? SkillSets   { get; set; }
+        public string SkillSets   { get; set; }
 
         [Required]
-        public string? Hobby { get; set; }
+        public string Hobby { get; set; }
 
         public string FileName { get; set; }
         public byte[] FileData { get; set; }

@@ -1,4 +1,5 @@
-﻿using EtiqaFreelancerApi.Common;
+﻿using EtiqaFreelancerApi.Cache;
+using EtiqaFreelancerApi.Common;
 using EtiqaFreelancerApi.DataContext;
 using EtiqaFreelancerApi.Interfaces;
 using EtiqaFreelancerApi.Models;
@@ -20,9 +21,11 @@ namespace EtiqaFreelancerApi.Controllers
     public class UsersController : BaseApiController
     {
         private readonly IUser _user;
-        public UsersController(IUser user, ILogger<BaseApiController> logger) : base(logger)
+        private readonly ICacheService _cacheService;
+        public UsersController(IUser user, ICacheService cacheService, ILogger<BaseApiController> logger) : base(logger)
         {
             _user = user;
+            _cacheService = cacheService;
         }
 
         [DisableCors]
@@ -32,12 +35,27 @@ namespace EtiqaFreelancerApi.Controllers
         {
             try
             {
-                var userList = await _user.GetUsers();
-                if(userList == null || userList.Count == 0)
+                //Check Data from cache.user is cache key
+                var cacheData = _cacheService.GetData<List<User>>("user");
+                if (cacheData != null)
                 {
-                    return Ok(HttpStatusCode.NotFound);
+                    return Ok(new { status = AppStatus.SuccessStatus, data = cacheData });
                 }
-                return Ok(new { status = AppStatus.SuccessStatus, data = userList });
+                else
+                {
+                    var userList = await _user.GetUsers();
+                    if (userList == null || userList.Count == 0)
+                    {
+                        return Ok(HttpStatusCode.NotFound);
+                    }
+
+                    //cache expired time
+                    var expirationTime = DateTimeOffset.Now.AddMinutes(2.0);
+                    //set userList to cache
+                    _cacheService.SetData<List<User>>("user", userList, expirationTime);
+                    //return response
+                    return Ok(new { status = AppStatus.SuccessStatus, data = userList });
+                }
             }
             catch (Exception ex)
             {
@@ -46,30 +64,38 @@ namespace EtiqaFreelancerApi.Controllers
 
         }
 
+
+        [HttpGet]
+        public async Task<ActionResult<User>> Get(int id)
+        {
+            try
+            {
+                User filteredData;
+                var cacheData = _cacheService.GetData<List<User>>("user");
+                if (cacheData != null)
+                {
+                    filteredData = cacheData.Where(x => x.Id == id).FirstOrDefault();
+                    return filteredData;
+                }
+
+                var userList = await _user.GetUsers();
+                filteredData = userList.Where(x => x.Id == id).FirstOrDefault();                
+                return Ok(new { status = AppStatus.SuccessStatus, data = filteredData });
+            }
+            catch(Exception ex)
+            {
+                return Ok(new { ex.Message });
+            }
+        }
+
+
         [HttpPost]
         public async Task<ActionResult> RegisterUser([FromForm] User user)
         {
             try
             {
-                //var file = Request.Form.Files[0]; //for single file
-                var formFiles = Request.Form.Files; //Request.Form.Files .get all file
-                var folderName = Path.Combine("wwwroot", "uploads");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                var formFiles = Request.Form.Files; //get all file             
 
-                //if (file.Length > 0)
-                //{
-                //    var fileName = Path.Combine(pathToSave, file.FileName);
-                //    using (var stream = new FileStream(fileName, FileMode.Create))
-                //    {
-                //        file.CopyTo(stream);
-                //    }
-
-                //    return Ok(new { fileName });
-                //}
-                //else
-                //{
-                //    return BadRequest();
-                //}
                 foreach (var formFile in formFiles)
                 {
                     if (formFile.Length > 0)
@@ -77,25 +103,15 @@ namespace EtiqaFreelancerApi.Controllers
                         using (var memoryStream = new MemoryStream())
                         {
                             await formFile.CopyToAsync(memoryStream);
-
                             // Convert the IFormFile to a byte array
                             var fileData = memoryStream.ToArray();
-
-                            // Save the file data to the database
-                            //var fileModel = new FileModel
-                            //{
-                            //    FileName = formFile.FileName,
-                            //    FileData = fileData
-                            //};
-
                             user.FileName = formFile.FileName;
                             user.FileData = fileData;
-                            //_dbContext.Files.Add(fileModel);
-                            //_dbContext.SaveChanges();
                         }
                     }
                 }
-                User saveUser = await  _user.AddUser(user);
+                User saveUser = await  _user.AddUser(user);          
+                RemoveUserCache();
                 return Ok(new UserResponseModel { Status = AppStatus.SuccessStatus, Data = saveUser });
             }
             catch (Exception ex)
@@ -111,6 +127,7 @@ namespace EtiqaFreelancerApi.Controllers
             try
             {
                 var updateUser =  _user.UpdateUser(user);
+                RemoveUserCache();
                 return Ok(new UserResponseModel { Status = AppStatus.SuccessStatus, Data = updateUser });
             }
             catch (Exception ex)
@@ -126,12 +143,34 @@ namespace EtiqaFreelancerApi.Controllers
             try
             {
                 _user.DeleteUser(id);
+                RemoveUserCache();
                 return Ok(new UserResponseModel { Status = AppStatus.SuccessStatus });
             }
             catch (Exception ex)
             {
                 return Ok(new UserResponseModel { Status = AppStatus.ErrorStatus, Exception = ex });
             }
+        }
+
+        public void SaveToLocalDirectory()
+        {
+            var file = Request.Form.Files[0];
+            var folderName = Path.Combine("wwwroot", "uploads");
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            if (file.Length > 0)
+            {
+                var fileName = Path.Combine(pathToSave, file.FileName);
+                using (var stream = new FileStream(fileName, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+            }
+        }
+
+        private void RemoveUserCache()
+        {
+            //remove previous cache
+            _cacheService.RemoveData("user");
         }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EtiqaFreelancerApi.Repositories
 {
-    public class UserRepository : IUser
+    public class UserRepository : IUser, IUserQueries
     {
         FreelancerContext _context;
         public UserRepository(FreelancerContext freelancerContext) { 
@@ -72,6 +72,19 @@ namespace EtiqaFreelancerApi.Repositories
                 throw;
             }
           
+        }
+
+        public async Task<User> GetUsersByID(int id)
+        {
+            try
+            {
+              var user =await GetUsers();
+              return  user.Where(x=>x.Id == id).SingleOrDefault();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

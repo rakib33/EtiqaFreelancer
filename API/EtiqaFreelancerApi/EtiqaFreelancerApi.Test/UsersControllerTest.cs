@@ -1,4 +1,5 @@
 ﻿using Castle.Core.Logging;
+using EtiqaFreelancerApi.Cache;
 using EtiqaFreelancerApi.Common;
 using EtiqaFreelancerApi.Controllers;
 using EtiqaFreelancerApi.Interfaces;
@@ -14,12 +15,14 @@ namespace EtiqaFreelancerApi.Test
         private readonly UsersController _usersController;
         //Moq
         private readonly Mock<IUser> _user;
+        private readonly Mock<ICacheService> _cacheService;
         private readonly Mock<ILogger<BaseApiController>> _logger;
         public UsersControllerTest()
         {
+            _cacheService = new Mock<ICacheService>();
             _user = new Mock<IUser>();
             _logger= new Mock<ILogger<BaseApiController>>();
-            _usersController = new UsersController(_user.Object,_logger.Object);
+            _usersController = new UsersController(_user.Object, _cacheService.Object,_logger.Object);
         }
 
         [Fact]
