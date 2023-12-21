@@ -165,10 +165,23 @@ Now, create a vue client app.
 vue create vue-client
 ```
 After the project is ready, run following command to install neccessary modules:
-
+```
 npm install vue-router
 npm install vuex
 npm install vee-validate yup
 npm install axios
 npm install bootstrap jquery popper.js
 npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome@prerelease
+```
+
+```
+Methods    	Urls	            Actions
+-------------------------------------------------------------------------------------
+POST	/api/Users	                create new Tutorial
+GET	    /api/Users	                retrieve all Tutorials
+GET	    /api/Users/:id	            retrieve a Tutorial by :id
+PUT	    /api/Users/:id	            update a Tutorial by :id
+DELETE	/api/Users/:id	            delete a Tutorial by :id
+DELETE	/api/Users	                delete all Tutorials
+GET	    /api/Users?key=[keyword]	find all Tutorials which contains keyword
+```
