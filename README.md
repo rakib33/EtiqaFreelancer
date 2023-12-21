@@ -16,6 +16,7 @@ A company create a developer network to build a list of freelancer.
     - Phone Number
     - Skillsets
     - Hobby
+    - User Image
 
 3. Communicate any well-know RDBMS database to  demonastrate data storage.
 
@@ -134,8 +135,28 @@ Heroku Project: https://freelancer33-f16a7093777b.herokuapp.com/
 
 ## Vue.Js
 
-In this tutorial, I will show you how to build a Vue.js CRUD Application to consume REST APIs, display and modify data using Vue , Vue Router and Axios.
-Installing vue globally or project directory.
+In this tutorial,I will show you how to build a Vue 3 Typescript example to consume REST APIs with a CRUD application in that, you can display and modify data using Axios and Vue Router.
+
+# Overview of Vue.js CRUD example
+
+We will build a Vue.js front-end Tutorial Application in that:
+    -Each Tutorial has id, User Name, Phone Number, Skillsets, Hobby and User Image.
+    -We can create, retrieve, update, delete Tutorials.
+    -There is a Search bar for finding Users.
+
+#Technology
+We will use these modules:
+
+vue
+vue-router 
+vuex 
+axios
+vee-validate 
+bootstrap
+vue-fontawesome   
+
+#Setup Vue Project
+Open cmd at the folder you want to save Project folder, run command to install vue globally:
 ```
 npm install -g @vue/cli
 ```
@@ -143,3 +164,11 @@ Now, create a vue client app.
 ```
 vue create vue-client
 ```
+After the project is ready, run following command to install neccessary modules:
+
+npm install vue-router
+npm install vuex
+npm install vee-validate yup
+npm install axios
+npm install bootstrap jquery popper.js
+npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome@prerelease
