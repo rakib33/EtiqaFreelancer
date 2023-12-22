@@ -185,3 +185,14 @@ DELETE      /api/Users/:id	            delete a Tutorial by :id
 DELETE      /api/Users	                    delete all Tutorials
 GET	    /api/Users?key=[keyword]	    find all Tutorials which contains keyword
 ```
+##Add Bootstrap
+
+Run command: npm install bootstrap jquery popper.js.
+Open src/main.ts and import Bootstrap as following-
+```
+import { createApp } from 'vue'
+import App from './App.vue'
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+...
+```
