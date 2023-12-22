@@ -106,7 +106,7 @@ After press the Create button Lets see the API project is created.The project in
     ```
 4. After any change on database model you need to run Add Migration command with appropriate migration nameand must update-database each time.
    
-# Unit Test Project
+## Unit Test Project
 
 One xUnit test project is created to test our web api controler with moq data. For this you need to install unit test tools from nuget.
 
@@ -137,7 +137,7 @@ Heroku Project: https://freelancer33-f16a7093777b.herokuapp.com/
 
 In this tutorial,I will show you how to build a Vue 3 Typescript example to consume REST APIs with a CRUD application in that, you can display and modify data using Axios and Vue Router.
 
-# Overview of Vue.js CRUD example
+## Overview of Vue.js CRUD example
 
 We will build a Vue.js front-end Tutorial Application in that:
     -Each Tutorial has id, User Name, Phone Number, Skillsets, Hobby and User Image.
@@ -177,11 +177,11 @@ npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons 
 ```
 Methods    	Urls	            Actions
 -------------------------------------------------------------------------------------
-POST	/api/Users	                create new Tutorial
+POST    /api/Users	                create new Tutorial
 GET	    /api/Users	                retrieve all Tutorials
 GET	    /api/Users/:id	            retrieve a Tutorial by :id
 PUT	    /api/Users/:id	            update a Tutorial by :id
-DELETE	/api/Users/:id	            delete a Tutorial by :id
-DELETE	/api/Users	                delete all Tutorials
+DELETE  /api/Users/:id	            delete a Tutorial by :id
+DELETE  /api/Users	                delete all Tutorials
 GET	    /api/Users?key=[keyword]	find all Tutorials which contains keyword
 ```
