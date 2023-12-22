@@ -198,3 +198,37 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 ...
 ```
+##Add Vue Router
+
+– Run the command: npm install vue-router.
+– In src folder, create router.ts and define Router as following code:
+
+```
+import { createWebHistory, createRouter } from "vue-router";
+
+const routes =  [
+  {
+    path: "/",
+    alias: "/users",
+    name: "users",
+    component: () => import("./components/UsersList")
+  },
+  {
+    path: "/Users/:id",
+    name: "user-details",
+    component: () => import("./components/User")
+  },
+  {
+    path: "/add",
+    name: "add",
+    component: () => import("./components/AddUsers")
+  }
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+export default router;
+```
