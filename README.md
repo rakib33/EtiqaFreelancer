@@ -16,6 +16,7 @@ A company create a developer network to build a list of freelancer.
     - Phone Number
     - Skillsets
     - Hobby
+    - User Image
 
 3. Communicate any well-know RDBMS database to  demonastrate data storage.
 
@@ -59,6 +60,7 @@ After press the Create button Lets see the API project is created.The project in
   - Microsoft.AspNetCore.Cors Version-2.2.0
     
 ## Project Structure
+
 1. Create a Models folder and User.cs model class for freelancers.
 2. Add FreelancerContext.cs DbContext class and configure database connection.
 3. Add user db set in FreelancerContext.cs n OnModelCreating method.
@@ -105,7 +107,7 @@ After press the Create button Lets see the API project is created.The project in
     ```
 4. After any change on database model you need to run Add Migration command with appropriate migration nameand must update-database each time.
    
-# Unit Test Project
+## Unit Test Project
 
 One xUnit test project is created to test our web api controler with moq data. For this you need to install unit test tools from nuget.
 
@@ -132,3 +134,124 @@ And Main branch has local data storage.Hear we Use MS SQL Server.
 
 Heroku Project: https://freelancer33-f16a7093777b.herokuapp.com/
 
+## Vue.Js
+
+In this tutorial,I will show you how to build a Vue 3 Typescript example to consume REST APIs with a CRUD application in that, you can display and modify data using Axios and Vue Router.
+
+## Overview of Vue.js CRUD example
+
+We will build a Vue.js front-end Tutorial Application in that:
+    -Each Tutorial has id, User Name, Phone Number, Skillsets, Hobby and User Image.
+    -We can create, retrieve, update, delete Tutorials.
+    -There is a Search bar for finding Users.
+
+## Technology
+
+We will use these modules:
+
+vue
+vue-router 
+vuex 
+axios
+vee-validate 
+bootstrap
+vue-fontawesome   
+
+## Extension
+Vue Language Feature(Volar)
+
+## Setup Vue Project
+
+Open cmd at the folder you want to save Project folder, run command to install vue globally:
+```
+npm install -g @vue/cli
+```
+Now, create a vue client app.
+```
+vue create vue-client
+```
+After the project is ready, run following command to install neccessary modules:
+```
+npm install vue-router
+npm install vuex
+npm install vee-validate yup
+npm install axios
+npm install bootstrap jquery popper.js
+npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome@prerelease
+```
+
+```
+Methods    	Urls	                    Actions
+-------------------------------------------------------------------------------------
+POST        /api/Users	                    create new Tutorial
+GET	    /api/Users	                    retrieve all Tutorials
+GET	    /api/Users/:id	            retrieve a Tutorial by :id
+PUT	    /api/Users/:id	            update a Tutorial by :id
+DELETE      /api/Users/:id	            delete a Tutorial by :id
+DELETE      /api/Users	                    delete all Tutorials
+GET	    /api/Users?key=[keyword]	    find all Tutorials which contains keyword
+```
+##Add Bootstrap
+
+Run command: npm install bootstrap jquery popper.js.
+Open src/main.ts and import Bootstrap as following-
+```
+import { createApp } from 'vue'
+import App from './App.vue'
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+...
+```
+
+
+## Add Vue Router
+
+
+– Run the command: npm install vue-router.
+
+– In src folder, create router.ts and define Router as following code:
+
+```
+import { createWebHistory, createRouter } from "vue-router";
+
+const routes =  [
+  {
+    path: "/",
+    alias: "/users",
+    name: "users",
+    component: () => import("./components/UsersList")
+  },
+  {
+    path: "/Users/:id",
+    name: "user-details",
+    component: () => import("./components/User")
+  },
+  {
+    path: "/add",
+    name: "add",
+    component: () => import("./components/AddUsers")
+  }
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+export default router;
+```
+
+We create the routes as an array, each route has:
+
+path: the URL path where this route can be found.
+name: optional name to use when we link to this route.
+component: component to load when this route is called.
+We also use createWebHistory to switch from using hash to history mode inside the browser, using the HTML5 history API.
+
+– Open src/main.ts and import the router in our application:
+
+```
+...
+import router from "@/router";
+createApp(App).use(router).mount("#app");
+```
