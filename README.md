@@ -145,6 +145,7 @@ We will build a Vue.js front-end Tutorial Application in that:
     -There is a Search bar for finding Users.
 
 #Technology
+
 We will use these modules:
 
 vue
@@ -156,6 +157,7 @@ bootstrap
 vue-fontawesome   
 
 #Setup Vue Project
+
 Open cmd at the folder you want to save Project folder, run command to install vue globally:
 ```
 npm install -g @vue/cli
