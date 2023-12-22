@@ -145,7 +145,7 @@ We will build a Vue.js front-end Tutorial Application in that:
     -We can create, retrieve, update, delete Tutorials.
     -There is a Search bar for finding Users.
 
-#Technology
+## Technology
 
 We will use these modules:
 
@@ -157,7 +157,10 @@ vee-validate
 bootstrap
 vue-fontawesome   
 
-#Setup Vue Project
+## Extension
+Vue Language Feature(Volar)
+
+## Setup Vue Project
 
 Open cmd at the folder you want to save Project folder, run command to install vue globally:
 ```
