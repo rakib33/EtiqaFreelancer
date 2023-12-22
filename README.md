@@ -60,6 +60,7 @@ After press the Create button Lets see the API project is created.The project in
   - Microsoft.AspNetCore.Cors Version-2.2.0
     
 ## Project Structure
+
 1. Create a Models folder and User.cs model class for freelancers.
 2. Add FreelancerContext.cs DbContext class and configure database connection.
 3. Add user db set in FreelancerContext.cs n OnModelCreating method.
@@ -198,9 +199,13 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 ...
 ```
-##Add Vue Router
+
+
+## Add Vue Router
+
 
 – Run the command: npm install vue-router.
+
 – In src folder, create router.ts and define Router as following code:
 
 ```
