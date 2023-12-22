@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            builder.AllowAnyOrigin().WithOrigins("https://freelancer33-f16a7093777b.herokuapp.com")
+            builder.AllowAnyOrigin().WithOrigins("https://freelancer33-f16a7093777b.herokuapp.com").WithOrigins(" http://localhost:8080/")
                  .AllowAnyMethod()
                  .AllowAnyHeader()
                  .AllowCredentials();
