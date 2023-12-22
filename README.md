@@ -175,13 +175,13 @@ npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons 
 ```
 
 ```
-Methods    	Urls	            Actions
+Methods    	Urls	                    Actions
 -------------------------------------------------------------------------------------
 POST        /api/Users	                create new Tutorial
-GET	    /api/Users	                retrieve all Tutorials
-GET	    /api/Users/:id	            retrieve a Tutorial by :id
-PUT	    /api/Users/:id	            update a Tutorial by :id
-DELETE     /api/Users/:id	            delete a Tutorial by :id
-DELETE     /api/Users	                delete all Tutorials
-GET	    /api/Users?key=[keyword]	find all Tutorials which contains keyword
+GET	    /api/Users	                    retrieve all Tutorials
+GET	    /api/Users/:id	                retrieve a Tutorial by :id
+PUT	    /api/Users/:id	                update a Tutorial by :id
+DELETE      /api/Users/:id	            delete a Tutorial by :id
+DELETE      /api/Users	                delete all Tutorials
+GET	    /api/Users?key=[keyword]	    find all Tutorials which contains keyword
 ```
