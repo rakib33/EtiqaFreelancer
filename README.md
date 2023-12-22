@@ -237,3 +237,18 @@ const router = createRouter({
 
 export default router;
 ```
+
+We create the routes as an array, each route has:
+
+path: the URL path where this route can be found.
+name: optional name to use when we link to this route.
+component: component to load when this route is called.
+We also use createWebHistory to switch from using hash to history mode inside the browser, using the HTML5 history API.
+
+– Open src/main.ts and import the router in our application:
+
+```
+...
+import router from "@/router";
+createApp(App).use(router).mount("#app");
+```
