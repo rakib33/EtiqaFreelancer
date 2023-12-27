@@ -1,5 +1,5 @@
 <template>
-  <div class="list row">
+  <div class="row">
     <div class="col-md-8">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Search by key"
@@ -8,12 +8,12 @@
           <button class="btn btn-outline-secondary" type="button"
             @click="searchByKey"
           >
-            Search
+          <font-awesome-icon icon="phone"></font-awesome-icon> Search
           </button>
         </div>
       </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-10">
       <h4>Users List</h4>
 
       <table class="table table-hover">
@@ -40,26 +40,14 @@
                     <td>{{user.hobby}}</td>
                     <td>{{user.fileName}}</td>
                     <!--<td> <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" @click="UpdateUser(user.id,index)">Update User</button></td>-->
-                    <td> <button @click="deleteNewUser(user.id)" class="btn btn-danger">Delete User</button></td>
+                    <td> <button @click="deleteNewUser(user.id)" class="btn btn-danger">\
+                     <font-awesome-icon icon="phone"></font-awesome-icon></button></td>
                 </tr>
             </tbody>
         </table>
-      <!-- <ul class="list-group">
-        <li class="list-group-item"
-          :class="{ active: index == currentIndex }"
-          v-for="(user, index) in users"
-          :key="index"
-          @click="setActiveUser(user, index)"
-        >
-          {{ user.title }}
-        </li>
-      </ul> -->
 
-      <button class="m-3 btn btn-sm btn-danger" @click="removeAllUsers">
-        Remove All
-      </button>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
       <div v-if="currentUser">
         <h4>User</h4>
         <div>
@@ -85,7 +73,7 @@
       </div>
       <div v-else>
         <br />
-        <p>Please click on a Tutorial...</p>
+        <p>Please click on a user...</p>
       </div>
     </div>
   </div>

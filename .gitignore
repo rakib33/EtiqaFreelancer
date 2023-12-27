@@ -3,4 +3,6 @@ API/EtiqaFreelancerApi/EtiqaFreelancerApi/bin
 API/EtiqaFreelancerApi/EtiqaFreelancerApi/obj
 API/EtiqaFreelancerApi/EtiqaFreelancerApi.Test/bin
 API/EtiqaFreelancerApi/EtiqaFreelancerApi.Test/obj
+API/EtiqaFreelancerApi/EtiqaFreelancerApi/Migrations
 vue-client/node_modules
+vue-client/dist

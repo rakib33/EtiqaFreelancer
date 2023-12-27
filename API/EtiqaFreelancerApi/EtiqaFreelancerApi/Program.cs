@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            builder.AllowAnyOrigin().WithOrigins("https://freelancer33-f16a7093777b.herokuapp.com").WithOrigins(" http://localhost:8080/")
+            builder.AllowAnyOrigin().WithOrigins("https://freelancer33-f16a7093777b.herokuapp.com")
                  .AllowAnyMethod()
                  .AllowAnyHeader()
                  .AllowCredentials();
@@ -59,7 +59,8 @@ app.UseHttpsRedirection();
 
 var options = new DefaultFilesOptions();
 options.DefaultFileNames.Clear();
-options.DefaultFileNames.Add("mydefault.html");
+//options.DefaultFileNames.Add("mydefault.html");
+options.DefaultFileNames.Add("index.html");
 app.UseDefaultFiles(options);
 app.UseStaticFiles();
 app.UseRouting();

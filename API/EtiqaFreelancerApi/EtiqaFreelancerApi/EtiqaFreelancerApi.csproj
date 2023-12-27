@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\mydefault.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.14" />
@@ -24,6 +28,15 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\375.e2c8bdd3.js" />
+    <None Include="wwwroot\js\375.e2c8bdd3.js.map" />
+    <None Include="wwwroot\js\app.22dc7b3c.js" />
+    <None Include="wwwroot\js\app.22dc7b3c.js.map" />
+    <None Include="wwwroot\js\chunk-vendors.d53e2879.js" />
+    <None Include="wwwroot\js\chunk-vendors.d53e2879.js.map" />
   </ItemGroup>
 
 </Project>
