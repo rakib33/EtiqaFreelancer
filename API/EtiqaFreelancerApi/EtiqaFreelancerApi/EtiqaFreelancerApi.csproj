@@ -31,12 +31,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\js\375.e2c8bdd3.js" />
-    <None Include="wwwroot\js\375.e2c8bdd3.js.map" />
-    <None Include="wwwroot\js\app.22dc7b3c.js" />
-    <None Include="wwwroot\js\app.22dc7b3c.js.map" />
-    <None Include="wwwroot\js\chunk-vendors.d53e2879.js" />
-    <None Include="wwwroot\js\chunk-vendors.d53e2879.js.map" />
+    <None Include="wwwroot\js\22.ebca14b6.js" />
+    <None Include="wwwroot\js\22.ebca14b6.js.map" />
+    <None Include="wwwroot\js\442.484dfc22.js" />
+    <None Include="wwwroot\js\442.484dfc22.js.map" />
+    <None Include="wwwroot\js\469.ed8cf133.js" />
+    <None Include="wwwroot\js\469.ed8cf133.js.map" />
+    <None Include="wwwroot\js\app.bf354ac1.js" />
+    <None Include="wwwroot\js\app.bf354ac1.js.map" />
+    <None Include="wwwroot\js\chunk-vendors.2d5d1594.js" />
+    <None Include="wwwroot\js\chunk-vendors.2d5d1594.js.map" />
   </ItemGroup>
 
 </Project>

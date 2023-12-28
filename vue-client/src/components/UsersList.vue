@@ -31,8 +31,9 @@
                 </tr>
             </thead>
             <tbody>
+              <!-- @click="setActiveUser(user, index)" -->
                 <tr :class="{ active: index == currentIndex}" v-for="(user,index) in users" 
-                @click="setActiveUser(user, index)" :key="index">
+                :key="index">
                     <td>{{index +1}}</td>
                     <td>{{user.userName}}</td>
                     <td>{{user.email}}</td>
@@ -41,7 +42,7 @@
                     <td>{{user.hobby}}</td>
                     <td>{{user.fileName}}</td>
                     <!--<td> <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" @click="UpdateUser(user.id,index)">Update User</button></td>-->
-                    <td> <button @click="deleteNewUser(user.id)" class="btn btn-danger">\
+                    <td> <button @click="deleteNewUser(user.id)" class="btn btn-danger">
                       <font-awesome-icon icon="trash" style="color: red;"></font-awesome-icon></button></td>
                 </tr>
             </tbody>
@@ -119,8 +120,24 @@ export default {
           console.log('[exception]->'+e);
         });
     },
+    async deleteNewUser(id) {
+                console.log('id to be deleted' + id);
+               UserDataService.delete(id).then(
+                    (response) => {
+                        console.log(response.data)                       
+                        this.status = response.data.status
+                        if (this.status === 'Success') {
+                            this.refreshList();
+                            alert("Delete Successful");
+                        }                          
+                        else
+                            alert('Delete failed');
+                    }
+                )
 
-    refreshList() {
+
+            },
+  async  refreshList() {
       this.retrieveUsers();
       this.currentUser = null;
       this.currentIndex = -1;

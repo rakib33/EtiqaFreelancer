@@ -29,7 +29,7 @@ class UserDataService {
     }
   
     delete(id) {
-      return http.delete(`/Users/${id}`);
+      return http.delete(`/Users?id=${id}`);
     }
   
     deleteAll() {
