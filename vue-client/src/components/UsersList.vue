@@ -8,14 +8,15 @@
           <button class="btn btn-outline-secondary" type="button"
             @click="searchByKey"
           >
-          <font-awesome-icon icon="phone"></font-awesome-icon> Search
+          <font-awesome-icon icon="search" />
+           Search
           </button>
         </div>
       </div>
     </div>
     <div class="col-md-10">
       <h4>Users List</h4>
-
+      <button @click="openModal">Add User</button>     
       <table class="table table-hover">
             <thead>
                 <tr>
@@ -41,7 +42,7 @@
                     <td>{{user.fileName}}</td>
                     <!--<td> <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" @click="UpdateUser(user.id,index)">Update User</button></td>-->
                     <td> <button @click="deleteNewUser(user.id)" class="btn btn-danger">\
-                     <font-awesome-icon icon="phone"></font-awesome-icon></button></td>
+                      <font-awesome-icon icon="trash" style="color: red;"></font-awesome-icon></button></td>
                 </tr>
             </tbody>
         </table>
@@ -81,10 +82,12 @@
 
 <script>
 
+
 import UserDataService from '../services/UserDataService';
 
 export default {
   name: "Users-list",
+ 
   data() {
     return {
       users: [],
@@ -97,6 +100,9 @@ export default {
     };
   },
   methods: {
+    openModal(){
+      this.$refs.AddUser.isOpen = true;
+    },
    async retrieveUsers() {
         console.log('get method is called');
         UserDataService.getAll()
