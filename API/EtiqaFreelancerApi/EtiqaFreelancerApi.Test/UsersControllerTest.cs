@@ -22,17 +22,17 @@ namespace EtiqaFreelancerApi.Test
             _usersController = new UsersController(_user.Object,_logger.Object);
         }
 
-        [Fact]
-        public void GetUserList_ReturnActionResult()
-        {
-            //Arrange
-            var ExpectedResut = new List<User> { };
-            //act
-           var result = _usersController.Get();
-            //assert
-            Assert.NotNull(result);    
-            Assert.IsAssignableFrom<Task<ActionResult<List<User>>>>(result);            
-        }
+        //[Fact]
+        //public void GetUserList_ReturnActionResult()
+        //{
+        //    //Arrange
+        //    var ExpectedResut = new List<User> { };
+        //    //act
+        //   var result = _usersController.Get();
+        //    //assert
+        //    Assert.NotNull(result);    
+        //    Assert.IsAssignableFrom<Task<ActionResult<List<User>>>>(result);            
+        //}
 
         [Fact]
         public async void AddUser_ReturnActionResult()

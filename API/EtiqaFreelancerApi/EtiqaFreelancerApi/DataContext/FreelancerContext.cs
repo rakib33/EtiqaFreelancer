@@ -10,11 +10,11 @@ namespace EtiqaFreelancerApi.DataContext
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer("Data Source=eu-az-sql-serv1.database.windows.net;Initial Catalog=dcy8k5s7tqgue9h;User ID=uyf63hof7fhkbqj;Password=uwtbMW@0wlnYUklMB40aoOVc!;Integrated Security=False");
+            optionsBuilder.UseSqlServer("Data Source=eu-az-sql-serv1.database.windows.net;Initial Catalog=dcy8k5s7tqgue9h;User ID=uyf63hof7fhkbqj;Password=uwtbMW@0wlnYUklMB40aoOVc!;Integrated Security=False");
 
            // optionsBuilder.UseSqlServer("Data Source=DESKTOP-OC677T4;Initial Catalog=EtiqaFreelancerDB;Integrated Security=True");
            //optionsBuilder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=EtiqaFreelancerDB;Integrated Security=True");
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-OC677T4;Initial Catalog=FreelancerDB;Integrated Security=True");
+           //optionsBuilder.UseSqlServer("Data Source=DESKTOP-OC677T4;Initial Catalog=FreelancerDB;Integrated Security=True");
 
             base.OnConfiguring(optionsBuilder);
         }
