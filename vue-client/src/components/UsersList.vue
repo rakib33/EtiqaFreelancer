@@ -14,7 +14,7 @@
     </div>
     <div class="col-md-9 col-sm-9">
       <div class="card">
-        <div class="row card-header">         
+        <div class="card-header">         
           <div class="col-md-4 flexContainer">
             <div> <h4>Users List</h4></div>
             <div> <button @click="openModal" class="btn btn-primary">Add User</button> </div>
@@ -56,33 +56,8 @@
     </div>
     <div class="col-md-3 col-sm-3">
       <div v-if="currentUser">
-        <div class="card">
-          <div class="card-header">
-              <h4>{{ currentUser.userName }}</h4>
-          </div>
-          <div class="card-body">  
-        
-          <div>
-            <label><strong>Email:</strong></label> 
-            <label>{{ currentUser.email }}</label>
-          </div>
-          <div>
-            <label><strong>Phone Number:</strong></label> <label> {{ currentUser.phoneNumber }}</label>
-          </div>
-          <div>
-            <label><strong>Skill Sets:</strong></label> <label>{{ currentUser.skillSets }}</label>
-          </div>
-          <div>
-            <label><strong>Hobby:</strong></label> <label> {{ currentUser.hobby }}</label>
-          </div>
-          <!-- <div>
-            <label><strong>Status:</strong></label> {{ currentUser.published ? "Published" : "Pending" }}
-          </div> -->
-
-          <router-link :to="'/users/' + currentUser.id" class="badge badge-warning">Edit</router-link>
-          </div>         
-        </div>
-    </div>
+        <user-details v-bind:currentUser="currentUser"></user-details>
+      </div>
       <div v-else>
         <div class="card">
           <div class="card-header">
@@ -96,13 +71,14 @@
 </template>
 
 <script>
-
-
 import UserDataService from '../services/UserDataService';
+import UserDetails from './UserDetails.vue';
 
 export default {
   name: "Users-list",
- 
+ components:{
+  UserDetails,
+ },
   data() {
     return {
       users: [],
