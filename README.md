@@ -732,15 +732,18 @@ And Main branch has local data storage.Hear we Use MS SQL Server. Heroku Project
 
 1. Index Page to display all user list.
 
-    ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/7e782f69-e92d-42b3-b2a8-f0e5dc26cd03)
+   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/09a2f499-74e7-4b25-a2aa-93a11efe1a14)
+
 
 2. Add user button will open user modal to add new user and update the user list.
 
-   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/4272b163-b18c-4b18-8ba1-70b2173db355)
+   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/3b122d3e-2d80-466d-b7a0-ff3228faa1c6)
+
 
 3. Click delete button to delete a user and after success list will be updated.
 
-   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/2f888b24-a36f-4f07-86cf-89225ae555c0)
+   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/cc8794e3-d51a-45b6-9e03-236acd303aa0)
+
    
 
 
