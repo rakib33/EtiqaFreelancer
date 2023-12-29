@@ -14,10 +14,10 @@
     </div>
     <div class="col-md-9 col-sm-9">
       <div class="card">
-        <div class="card-header">         
+        <div class="card-header">
           <div class="col-md-4 flexContainer">
             <div> <h4>Users List</h4></div>
-            <div> <button @click="openModal" class="btn btn-primary">Add User</button> </div>
+            <div> <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Add User</button> </div>
           </div>
         </div>
         <div class="card-body">
@@ -68,16 +68,41 @@
     </div>
 
   </div>
+  <!-- The Modal class="modal" -->
+  <div id="myModal" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Create a New User</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">                     
+                      <add-user @refreshList="refreshList"></add-user>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div> -->
+
+                </div>
+            </div>
+  </div>
 </template>
 
 <script>
 import UserDataService from '../services/UserDataService';
 import UserDetails from './UserDetails.vue';
-
+import AddUser from './AddUser.vue';
 export default {
   name: "Users-list",
  components:{
   UserDetails,
+  AddUser,
  },
   data() {
     return {
@@ -128,6 +153,7 @@ export default {
 
             },
   async  refreshList() {
+    console.log('Refresh List is called!');
       this.retrieveUsers();
       this.currentUser = null;
       this.currentIndex = -1;

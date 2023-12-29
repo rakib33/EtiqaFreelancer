@@ -3,10 +3,10 @@
     <div class="card-header">
         <h4>{{ currentUser.userName }}</h4>
     </div>
-    <div class="card-body">  
-  
+    <div class="card-body">
+
     <div>
-      <label><strong>Email:</strong></label> 
+      <label><strong>Email:</strong></label>
       <label>{{ currentUser.email }}</label>
     </div>
     <div>
@@ -23,7 +23,7 @@
     </div> -->
 
     <router-link :to="'/users/' + currentUser.id" class="badge badge-warning">Edit</router-link>
-    </div>         
+    </div>
   </div>
 </template>
 

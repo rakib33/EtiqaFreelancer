@@ -1,8 +1,8 @@
 <template>
     <input type="text" v-model="user.id" hidden/>
     <div class="submit-form">
-      <div v-if="!submitted">
-        <div class="form-group">
+      <div class="container" v-if="!submitted">
+        <div class="form-group mb-3 mt-3">
           <label for="userName">User Name</label>
           <input
             type="text"
@@ -13,9 +13,10 @@
             name="userName"
             placeholder="Enter user name"
           />
+          
         </div>
   
-        <div class="form-group">
+        <div class="form-group mb-3 mt-3">
           <label for="email">Email</label>
           <input
             class="form-control"
@@ -25,9 +26,10 @@
             name="email"
             placeholder="Enter email"
           />
+         
         </div>
   
-        <div class="form-group">
+        <div class="form-group mb-3 mt-3">
           <label for="phoneNumber">Phone Number</label>
           <input
             class="form-control"
@@ -38,7 +40,7 @@
             placeholder="Enter phone number"
           />
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3 mt-3">
           <label for="skill">Skill</label>
           <textarea
             class="form-control"
@@ -47,9 +49,9 @@
             v-model="user.skill"
             name="skill"
             placeholder="Enter skill"
-          />
+          ></textarea>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3 mt-3">
           <label for="hobby">Hobby</label>
           <textarea
             class="form-control"
@@ -58,9 +60,9 @@
             v-model="user.hobby"
             name="hobby"
             placeholder="Enter phone number"
-          />
+          ></textarea>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label for="file">Upload User Image</label>
           <input type="file"
             class="form-control"
@@ -71,12 +73,12 @@
             <img height="200" width="200" style="justify-content:center; align-items:center;" v-if="url" :src="url" />
           </div>
         </div>
-        <button @click="saveUser" class="btn btn-success">Submit</button>
+        <button @click="saveUser" class="btn btn-success mt-3">Submit</button>
       </div>
   
       <div v-else>
-        <h4>You submitted successfully!</h4>
-        <button class="btn btn-success" @click="newTutorial">Add</button>
+        <h4>{{ Message }}</h4>
+        <!-- <button class="btn btn-success" @click="newTutorial">Add</button> -->
       </div>
     </div>
   </template>
@@ -99,11 +101,26 @@
         },
         url:null,
         selectedFile: null,
-        submitted: false
+        submitted: false,
+        Message:""
       };
+    },
+    computed:{
+    //   isUsernameValid() {
+    //   return this.userName != '';
+    // },
+    // isEmailValid() {
+    //   // Use a regular expression for basic email format validation
+    //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //   return emailRegex.test(this.email);
+    // },
+    // isFormValid() {
+    //   return this.isUsernameValid && this.isEmailValid;
+    // },
     },
     methods: {
       saveUser() {
+  
         var data = {
           userName: this.user.userName,
           email: this.user.email,
@@ -117,17 +134,28 @@
           .then(response => {
            //this.user.id = response.data.id;
             console.log(response.data);
-            this.submitted = true;
+            this.submitted = true;           
+            this.Message = "submitted successfully!";
+             // Emit a custom event to notify the parent to refresh the list.
+            console.log('Form submitted! call parent refreshList.'); 
+            this.newUser();         
+            this.$emit('refreshList');
           })
           .catch(e => {
+            this.newUser();
             console.log(e);
+            alert("Error:" + e);
           });
+          
       },
+    
       
       newUser() {
+        console.log('New user method is called.');
         this.submitted = false;
         this.user = {};
         this.url = null;
+        this.file = null;
       },
       async handleFileUpload(event) {
                 console.log('selected file is clicked');
@@ -137,6 +165,10 @@
                 console.log('selected file length: ' + this.selectedFile);
                 //display preview image               
             }
+    },
+    mounted(){
+      console.log('mounted new user is called');
+      this.newUser();
     }
   };
   </script>
