@@ -31,16 +31,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\js\22.ebca14b6.js" />
-    <None Include="wwwroot\js\22.ebca14b6.js.map" />
-    <None Include="wwwroot\js\442.484dfc22.js" />
-    <None Include="wwwroot\js\442.484dfc22.js.map" />
-    <None Include="wwwroot\js\469.ed8cf133.js" />
-    <None Include="wwwroot\js\469.ed8cf133.js.map" />
-    <None Include="wwwroot\js\app.bf354ac1.js" />
-    <None Include="wwwroot\js\app.bf354ac1.js.map" />
-    <None Include="wwwroot\js\chunk-vendors.2d5d1594.js" />
-    <None Include="wwwroot\js\chunk-vendors.2d5d1594.js.map" />
+    <None Include="wwwroot\js\245.9d6bebfd.js" />
+    <None Include="wwwroot\js\245.9d6bebfd.js.map" />
+    <None Include="wwwroot\js\442.775cef01.js" />
+    <None Include="wwwroot\js\442.775cef01.js.map" />
+    <None Include="wwwroot\js\469.b29345c4.js" />
+    <None Include="wwwroot\js\469.b29345c4.js.map" />
+    <None Include="wwwroot\js\app.0601630f.js" />
+    <None Include="wwwroot\js\app.0601630f.js.map" />
+    <None Include="wwwroot\js\chunk-vendors.59474616.js" />
+    <None Include="wwwroot\js\chunk-vendors.59474616.js.map" />
   </ItemGroup>
 
 </Project>

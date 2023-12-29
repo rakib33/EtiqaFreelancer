@@ -1,23 +1,27 @@
 <template>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-9">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Search by key"
           v-model="key"/>
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button"
-            @click="searchByKey"
-          >
-          <font-awesome-icon icon="search" />
+            @click="searchByKey">                 
            Search
           </button>
         </div>
       </div>
     </div>
-    <div class="col-md-10">
-      <h4>Users List</h4>
-      <button @click="openModal">Add User</button>     
-      <table class="table table-hover">
+    <div class="col-md-9 col-sm-9">
+      <div class="card">
+        <div class="row card-header">         
+          <div class="col-md-4 flexContainer">
+            <div> <h4>Users List</h4></div>
+            <div> <button @click="openModal" class="btn btn-primary">Add User</button> </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <table v-if="users" class="table table-hover">
             <thead>
                 <tr>
                     <th></th>
@@ -30,10 +34,9 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-              <!-- @click="setActiveUser(user, index)" -->
+            <tbody>          
                 <tr :class="{ active: index == currentIndex}" v-for="(user,index) in users" 
-                :key="index">
+                @click="setActiveUser(user, index)" :key="index">
                     <td>{{index +1}}</td>
                     <td>{{user.userName}}</td>
                     <td>{{user.email}}</td>
@@ -42,42 +45,53 @@
                     <td>{{user.hobby}}</td>
                     <td>{{user.fileName}}</td>
                     <!--<td> <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" @click="UpdateUser(user.id,index)">Update User</button></td>-->
-                    <td> <button @click="deleteNewUser(user.id)" class="btn btn-danger">
-                      <font-awesome-icon icon="trash" style="color: red;"></font-awesome-icon></button></td>
+                    <td> <button @click.stop="deleteNewUser(user.id)" class="btn btn-danger">
+                      Delete</button></td>
                 </tr>
             </tbody>
-        </table>
-
+          </table>
+         <p v-else> No user available</p>
+        </div>
+      </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3 col-sm-3">
       <div v-if="currentUser">
-        <h4>User</h4>
-        <div>
-          <label><strong>User Name:</strong></label> {{ currentUser.userName }}
-        </div>
-        <div>
-          <label><strong>Email:</strong></label> {{ currentUser.email }}
-        </div>
-        <div>
-          <label><strong>Phone Number:</strong></label> {{ currentUser.phoneNumber }}
-        </div>
-        <div>
-          <label><strong>Skill Sets:</strong></label> {{ currentUser.skillSets }}
-        </div>
-        <div>
-          <label><strong>Hobby:</strong></label> {{ currentUser.hobby }}
-        </div>
-        <!-- <div>
-          <label><strong>Status:</strong></label> {{ currentUser.published ? "Published" : "Pending" }}
-        </div> -->
+        <div class="card">
+          <div class="card-header">
+              <h4>{{ currentUser.userName }}</h4>
+          </div>
+          <div class="card-body">  
+        
+          <div>
+            <label><strong>Email:</strong></label> 
+            <label>{{ currentUser.email }}</label>
+          </div>
+          <div>
+            <label><strong>Phone Number:</strong></label> <label> {{ currentUser.phoneNumber }}</label>
+          </div>
+          <div>
+            <label><strong>Skill Sets:</strong></label> <label>{{ currentUser.skillSets }}</label>
+          </div>
+          <div>
+            <label><strong>Hobby:</strong></label> <label> {{ currentUser.hobby }}</label>
+          </div>
+          <!-- <div>
+            <label><strong>Status:</strong></label> {{ currentUser.published ? "Published" : "Pending" }}
+          </div> -->
 
-        <router-link :to="'/users/' + currentUser.id" class="badge badge-warning">Edit</router-link>
-      </div>
+          <router-link :to="'/users/' + currentUser.id" class="badge badge-warning">Edit</router-link>
+          </div>         
+        </div>
+    </div>
       <div v-else>
-        <br />
-        <p>Please click on a user...</p>
+        <div class="card">
+          <div class="card-header">
+            <p>Please click on a user...</p>
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -160,11 +174,12 @@ export default {
     },
     
     searchByKey() {
-        UserDataService.findByTitle(this.title)
+        UserDataService.findByKey(this.key)
         .then(response => {
-          this.users = response.data;
+          //this.users = response.data;
+          this.users = response.data.data;
           this.setActiveUser(null);
-          console.log(response.data);
+          console.log('folered user data : '+this.users);
         })
         .catch(e => {
           console.log(e);

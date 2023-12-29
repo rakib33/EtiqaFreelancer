@@ -36,7 +36,8 @@ class UserDataService {
       return http.delete(`/Users`);
     }
   
-    findByTitle(key) {
+    //key hear user name || email || phone no
+    findByKey(key) {
       return http.get(`/Users?key=${key}`);
     }
   }
