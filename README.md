@@ -516,6 +516,146 @@ now run or build the project.
 ```
 npm run serve
 ```
+## Structure
+This simple Vue.js vue client project structure is looks like,
+
+![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/e2b9cbdd-41ee-413c-9262-2444ae2fbfc9)
+
+# Components
+
+We are using very simple user crud application so we need to do create user component.
+ - [UserList.vue] -> This is responsible to display user list on bootstrap table.
+ - [AddUser.vue] -> This is responsible to add a new user.
+ - [UserDetails.vue] -> This is responsible to display indivvidual user data beside list.
+
+# Router
+
+For navigating url like Add user , User List and so on we need to create a router.js 
+
+```
+import { createWebHistory, createRouter } from "vue-router";
+
+const routes  =  [
+  {
+    path: "/",
+    alias: "/users",
+    name: "users",
+    component: () => import("./components/UsersList")
+  }, 
+  {
+    path: "/add",
+    name: "add",
+    component: () => import("./components/AddUser")
+  }
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+export default router;
+```
+# HTTP Client
+
+For http api communication install axios. 
+
+```
+npm install --save axios vue-axios
+```
+Create a js file http-common.js , we are configure application api here.
+
+```
+import axios from "axios";
+
+export default axios.create({
+  baseURL: "https://localhost:7222/api",
+  withCredentials : true, 
+   headers: {
+     "Content-type": "application/json",
+     'Access-Control-Allow-Origin': '*' // Specify the allowed origins (replace * with your actual domain in production)
+   }
+});
+```
+
+# App.vue
+
+App.vue has master templete header footer and routing url or any thing you can do here.
+
+```
+<template>
+  <div id="app">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <router-link to="/" class="navbar-brand">Users</router-link>
+      <div class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <router-link to="/users" class="nav-link">Users</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/add" class="nav-link">Add</router-link>
+        </li>
+      </div>
+    </nav>
+
+    <div class="container mt-3">
+      <router-view />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "app"
+};
+</script>
+```
+
+# service
+
+service has all api calling method and business calculation. This method is called from component according their need.
+
+```
+<template>
+  <div id="app">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <router-link to="/" class="navbar-brand">Users</router-link>
+      <div class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <router-link to="/users" class="nav-link">Users</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/add" class="nav-link">Add</router-link>
+        </li>
+      </div>
+    </nav>
+
+    <div class="container mt-3">
+      <router-view />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "app"
+};
+</script>
+```
+# Build 
+To create a production build open visual studio code terminal. short key [Ctrl+Shift+~] and run this command. This will create a dist folder.
+
+```
+npm run build
+```
+
+Dist folder conatins all our packages.
+
+![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/2ee60836-c9ba-4d67-adc0-643b65847e03)
+
+Now copy all file and past visual studio wwwroot folder
+
+![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/971b7ffa-894e-455f-a55d-8c5b43997a50)
+
 
 ## Deployment
 
