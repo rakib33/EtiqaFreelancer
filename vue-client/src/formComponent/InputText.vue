@@ -1,14 +1,20 @@
 <template>
-  <div>
-    <label :for="id">{{ label }}</label>
-    <input
-      :id="id"
-      v-model="inputValue"
-      @input="updateInputValue"
-      :class="{ 'is-invalid': !isValid }"
-    />
-    <span v-if="!isValid" class="error-message">{{ errorMessage }}</span>
-  </div>
+          <div class="form-group mb-3 mt-3">
+            <label :for="id">{{ label }}</label>
+          <input
+            class="form-control"
+            :id="id"
+            :name="id"
+            :placeholder="placeholder"
+            :class="{ 'is-invalid': !isValid }"
+            :required="required"
+            v-model="inputValue"
+            @input="updateInputValue"
+            
+          />
+          <span v-if="!isValid" class="error-message">{{ errorMessage }}</span>
+        </div>
+  
 </template>
 
 <script>
@@ -22,26 +28,39 @@ export default {
       type: String,
       required: true,
     },
+    required:{
+      type: Boolean, default: false
+    },
     validator: {
       type: Function,
-      default: () => () => true,
+      default: () => () => false,
     },
+    placeholder:{
+      type: String,
+      required:false,
+      default:'',
+    }
+    
   },
   data() {
     return {
       inputValue: '',
+      //errorMessage:'',
     };
   },
   computed: {
     isValid() {
+      console.log('input text field isValid is called!');
       return this.validator(this.inputValue);
     },
     errorMessage() {
+      console.log('inputText error message is called.');
       return this.isValid ? '' : `Invalid ${this.label.toLowerCase()}`;
     },
   },
   methods: {
     updateInputValue() {
+      console.log('inputed value:'+this.inputValue);
       this.$emit('update:modelValue', this.inputValue);
     },
   },

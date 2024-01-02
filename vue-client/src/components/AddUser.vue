@@ -14,7 +14,7 @@
             name="userName"
             placeholder="Enter user name"
           /> -->
-          <InputText id="userName" label="User Name" :validator="validateUsername" v-model="userName"></InputText>
+          <InputText id="userName" label="User Name" :validator="validateUsername" v-model="user.userName" required=true></InputText>
         </div>
   
         <div class="form-group mb-3 mt-3">
@@ -88,7 +88,7 @@
   
   <script>
   import InputText from '@/formComponent/InputText.vue';
-  import { useVuelidate } from '@vuelidate/core';
+ // import { useVuelidate } from '@vuelidate/core';
   import UserDataService from "../services/UserDataService";
   
   export default {
@@ -113,33 +113,33 @@
         Message:""
       };
     },
-    setup(){
-      const {$v,$reset} = useVuelidate();
-      const userName = '';
+    // setup(){
+    //   //const {$reset} = useVuelidate();
+    //   const userName = '';
       
-      const submitForm = async()=>{
-      
-        if ($v.$pending) {
-        // Validation is still pending, don't submit the form yet
-        return;
-      }
+    //   const submitForm = async()=>{
+    //    console.log('From submit is called.');
+    //   //   if ($v.$pending) {
+    //   //   // Validation is still pending, don't submit the form yet
+    //   //   return;
+    //   // }
 
-      if ($v.$invalid) {
-        // Validation failed, handle it accordingly
-        console.log('Form is invalid');
-        return;
-      }
-      // Form is valid, handle submission logic here
-      console.log('Form submitted successfully with username:', userName);
+    //   // if ($v.$invalid) {
+    //   //   // Validation failed, handle it accordingly
+    //   //   console.log('Form is invalid');
+    //   //   return;
+    //   // }
+    //   // Form is valid, handle submission logic here
+    //   console.log('Form submitted successfully with username:', userName);
 
-      // Reset the form validation state after submission
-      $reset();
-      };
-      return {
-      submitForm,
-      userName,
-    };
-    },
+    //   // Reset the form validation state after submission
+    //  // $reset();
+    //   };
+    //   return {
+    //   submitForm,
+    //   userName,
+    // };
+    // },
     methods: {
       validateUsername(userName){
         console.log('validate user name is clicked');
@@ -147,7 +147,7 @@
         return alphanumericRegex.test(userName);
 
       },
-      saveUser() {
+      submitForm() {
   
         var data = {
           userName: this.user.userName,
@@ -157,7 +157,7 @@
           hobby: this.user.hobby,
           selectedFile: this.selectedFile
         };
-       
+         console.log('Submit Form:' + this.user.userName);
         UserDataService.create(data)
           .then(response => {
            //this.user.id = response.data.id;
