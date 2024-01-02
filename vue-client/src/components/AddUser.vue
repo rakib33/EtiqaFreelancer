@@ -1,10 +1,11 @@
 <template>
+  <form @submit.prevent="submitForm">
     <input type="text" v-model="user.id" hidden/>
     <div class="submit-form">
       <div class="container" v-if="!submitted">
         <div class="form-group mb-3 mt-3">
-          <label for="userName">User Name</label>
-          <input
+          <!-- <label for="userName">User Name</label> -->
+          <!-- <input
             type="text"
             class="form-control"
             id="userName"
@@ -12,8 +13,8 @@
             v-model="user.userName"
             name="userName"
             placeholder="Enter user name"
-          />
-          
+          /> -->
+          <InputText id="userName" label="User Name" :validator="validateUsername" v-model="userName"></InputText>
         </div>
   
         <div class="form-group mb-3 mt-3">
@@ -73,7 +74,8 @@
             <img height="200" width="200" style="justify-content:center; align-items:center;" v-if="url" :src="url" />
           </div>
         </div>
-        <button @click="saveUser" class="btn btn-success mt-3">Submit</button>
+        <button type="submit" class="btn btn-success mt-3">Submit</button>
+        <!-- @click="saveUser" -->
       </div>
   
       <div v-else>
@@ -81,12 +83,18 @@
         <!-- <button class="btn btn-success" @click="newTutorial">Add</button> -->
       </div>
     </div>
+  </form>
   </template>
   
   <script>
+  import InputText from '@/formComponent/InputText.vue';
+  import { useVuelidate } from '@vuelidate/core';
   import UserDataService from "../services/UserDataService";
   
   export default {
+    components:{
+      InputText,
+    }, 
     name: "add-user",
     data() {
       return {      
@@ -105,20 +113,40 @@
         Message:""
       };
     },
-    computed:{
-    //   isUsernameValid() {
-    //   return this.userName != '';
-    // },
-    // isEmailValid() {
-    //   // Use a regular expression for basic email format validation
-    //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //   return emailRegex.test(this.email);
-    // },
-    // isFormValid() {
-    //   return this.isUsernameValid && this.isEmailValid;
-    // },
+    setup(){
+      const {$v,$reset} = useVuelidate();
+      const userName = '';
+      
+      const submitForm = async()=>{
+      
+        if ($v.$pending) {
+        // Validation is still pending, don't submit the form yet
+        return;
+      }
+
+      if ($v.$invalid) {
+        // Validation failed, handle it accordingly
+        console.log('Form is invalid');
+        return;
+      }
+      // Form is valid, handle submission logic here
+      console.log('Form submitted successfully with username:', userName);
+
+      // Reset the form validation state after submission
+      $reset();
+      };
+      return {
+      submitForm,
+      userName,
+    };
     },
     methods: {
+      validateUsername(userName){
+        console.log('validate user name is clicked');
+        const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+        return alphanumericRegex.test(userName);
+
+      },
       saveUser() {
   
         var data = {
