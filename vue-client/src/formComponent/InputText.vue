@@ -7,7 +7,7 @@
             :name="id"
             :placeholder="placeholder"
             :class="{ 'is-invalid': !isValid }"
-            :required="required"
+            :required="required"            
             v-model="inputValue"
             @input="updateInputValue"
             
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { number } from 'yup';
+
 export default {
   props: {
     id: {
@@ -39,7 +41,15 @@ export default {
       type: String,
       required:false,
       default:'',
-    }
+    },
+    maxLength:{
+      type:number,
+      default: 50
+    },
+    minLength:{
+      type:number,
+      default: 3
+    },
     
   },
   data() {
@@ -49,13 +59,22 @@ export default {
     };
   },
   computed: {
-    isValid() {
+    isValid(props) {
+      const length = this.inputValue.length;
       console.log('input text field isValid is called!');
-      return this.validator(this.inputValue);
+      if(this.validator(this.inputValue) && length>= props.minLength && length <= props.maxLength)
+      {
+        console.log('is valid true');
+        return true;
+      }
+      else{
+        console.log('return false');
+        return false;
+      }
     },
-    errorMessage() {
+    errorMessage(props) {
       console.log('inputText error message is called.');
-      return this.isValid ? '' : `Invalid ${this.label.toLowerCase()}`;
+      return this.isValid ? '' : `Invalid ${this.label.toLowerCase()}.length minimum:${props.minLength.toLowerCase()} maximum:${props.maxLength.toLowerCase()}`;
     },
   },
   methods: {

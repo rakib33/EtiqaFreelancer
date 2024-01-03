@@ -6,3 +6,8 @@
 .flexContainer div{
     flex-basis: 50%;
 }
+
+#CreateNewUser{
+    max-width: 350px;
+}
+

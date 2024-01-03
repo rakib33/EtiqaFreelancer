@@ -3,43 +3,16 @@
     <input type="text" v-model="user.id" hidden/>
     <div class="submit-form">
       <div class="container" v-if="!submitted">
-        <div class="form-group mb-3 mt-3">
-          <!-- <label for="userName">User Name</label> -->
-          <!-- <input
-            type="text"
-            class="form-control"
-            id="userName"
-            required
-            v-model="user.userName"
-            name="userName"
-            placeholder="Enter user name"
-          /> -->
-          <InputText id="userName" label="User Name" :validator="validateUsername" v-model="user.userName" required=true></InputText>
+        <div class="form-group mb-3 mt-3">        
+          <InputText id="userName" label="User Name" :validator="validateUsername" v-model="user.userName" max-length=6 min-length=3 required=true></InputText>
+        </div>
+  
+        <div class="form-group mb-3 mt-3">         
+         <EmailInputField id="email" label="Email" v-model="user.email" required=true is-email-valid=false placeholder="Enter email address"></EmailInputField>
         </div>
   
         <div class="form-group mb-3 mt-3">
-          <label for="email">Email</label>
-          <input
-            class="form-control"
-            id="email"
-            required
-            v-model="user.email"
-            name="email"
-            placeholder="Enter email"
-          />
-         
-        </div>
-  
-        <div class="form-group mb-3 mt-3">
-          <label for="phoneNumber">Phone Number</label>
-          <input
-            class="form-control"
-            id="phoneNumber"
-            required
-            v-model="user.phoneNumber"
-            name="phoneNumber"
-            placeholder="Enter phone number"
-          />
+         <PhoneNumberInputField></PhoneNumberInputField>
         </div>
         <div class="form-group mb-3 mt-3">
           <label for="skill">Skill</label>
@@ -88,12 +61,16 @@
   
   <script>
   import InputText from '@/formComponent/InputText.vue';
+  import EmailInputField from '@/formComponent/EmailInputField.vue';
+  import PhoneNumberInputField from '@/formComponent/PhoneNumberInputField.vue';
  // import { useVuelidate } from '@vuelidate/core';
   import UserDataService from "../services/UserDataService";
   
   export default {
     components:{
       InputText,
+      EmailInputField,
+      PhoneNumberInputField,
     }, 
     name: "add-user",
     data() {
@@ -113,33 +90,7 @@
         Message:""
       };
     },
-    // setup(){
-    //   //const {$reset} = useVuelidate();
-    //   const userName = '';
-      
-    //   const submitForm = async()=>{
-    //    console.log('From submit is called.');
-    //   //   if ($v.$pending) {
-    //   //   // Validation is still pending, don't submit the form yet
-    //   //   return;
-    //   // }
-
-    //   // if ($v.$invalid) {
-    //   //   // Validation failed, handle it accordingly
-    //   //   console.log('Form is invalid');
-    //   //   return;
-    //   // }
-    //   // Form is valid, handle submission logic here
-    //   console.log('Form submitted successfully with username:', userName);
-
-    //   // Reset the form validation state after submission
-    //  // $reset();
-    //   };
-    //   return {
-    //   submitForm,
-    //   userName,
-    // };
-    // },
+    
     methods: {
       validateUsername(userName){
         console.log('validate user name is clicked');
@@ -157,7 +108,9 @@
           hobby: this.user.hobby,
           selectedFile: this.selectedFile
         };
-         console.log('Submit Form:' + this.user.userName);
+        
+  console.log('Submit Form: username: ' + this.user.userName + ' email:' + this.user.email);
+         console.log('Country code: ' + this.PhoneNumberInputField.countryCode + ' Phone Number:' + this.PhoneNumberInputField.phoneNumber);
         UserDataService.create(data)
           .then(response => {
            //this.user.id = response.data.id;
