@@ -1,4 +1,5 @@
 <template>
+  <loading-bar :is-loading="isLoading" :progress="progress"></loading-bar>
   <div class="row">
     <div class="col-md-9">
       <div class="input-group mb-3">
@@ -98,12 +99,15 @@
 import UserDataService from '../services/UserDataService';
 import UserDetails from './UserDetails.vue';
 import AddUser from './AddUser.vue';
+import LoadingBar from './LoadingBar.vue';
+
 export default {
   name: "Users-list",
  components:{
-  UserDetails,
-  AddUser,
- },
+    UserDetails,
+    AddUser,
+    LoadingBar,
+},
   data() {
     return {
       users: [],
@@ -113,26 +117,49 @@ export default {
       selectedFile: null,
       url:null,
       status: '',
+      isLoading:false,
+      progress:0,
     };
   },
   methods: {
     openModal(){
       this.$refs.AddUser.isOpen = true;
     },
+    getAllData() {
+      // Simulating an API request (replace this with your actual API call)
+      return new Promise((resolve) => {
+        const interval = setInterval(() => {
+          this.progress += 2; // You can adjust the increment value
+          if (this.progress >= 100) {
+            clearInterval(interval);
+            resolve();
+          }
+        }, 100); // You can adjust the interval time
+      });
+    },
    async retrieveUsers() {
         console.log('get method is called');
+        this.isLoading = true;
+        this.progress = 0;
+        
         UserDataService.getAll()
-        .then(response => {
-         
+        .then(response => {         
           console.log(response.data);
           this.users = response.data.data;
           this.status = response.data.status;
           console.log(this.status);
           console.log('data' + this.users);
           console.log(response.data.data);
+
+           // API request completed
+          this.isLoading = false;
+          alert("API request completed!");
         })
         .catch(e => {
           console.log('[exception]->'+e);
+           // Handle API request error
+           this.isLoading = false;
+          console.error("API request failed:", e.error);
         });
     },
     async deleteNewUser(id) {
