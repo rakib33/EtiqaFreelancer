@@ -4,30 +4,32 @@
     <div>
       <label for="phone">Phone Number:</label>
       <div class="phone-input">
-        <input          
+        <!-- <input          
           v-model="countryCode"
           type="text"
           id="countryCode"
           name="countryCode"
           placeholder="+"
           class="form-control country-code"
-        />
+        /> -->
         <input
           v-model="phoneNumber"
+          
           type="text"
           id="phoneNumber"
           name="phoneNumber"
+          :placeholder="placeholder"
           @input="validatePhoneNumber"
           class="form-control phone-number"
         />
-        <input
+        <!-- <input
           v-model="extension"
           type="text"
           id="extension"
           name="extension"
           placeholder="Ext"
           class="form-control extension"
-        />
+        /> -->
       </div>
       <div v-if="error" class="error-message">{{ error }}</div>
     </div>
@@ -35,7 +37,13 @@
   
   <script>
   export default {
-
+  props:{
+    placeholder:{
+      type: String,
+      required:false,
+      default:'',
+    }, 
+  },
     data() {
       return {
         countryCode: '',
@@ -47,12 +55,14 @@
     methods: {
       validatePhoneNumber() {
         // Regular expressions for country code and phone number
-        const countryCodeRegex = /^\+?[0-9]+$/;
+        //const countryCodeRegex = /^\+?[0-9]+$/;
         const phoneNumberRegex = /^[0-9]+$/;
   
-        if (!countryCodeRegex.test(this.countryCode)) {
-          this.error = 'Invalid country code';
-        } else if (!phoneNumberRegex.test(this.phoneNumber)) {
+        // if (!countryCodeRegex.test(this.countryCode)) {
+        //   this.error = 'Invalid country code';
+        // } 
+        
+        if (!phoneNumberRegex.test(this.phoneNumber)) {
           this.error = 'Invalid phone number';
         } else {
           this.error = '';
@@ -60,11 +70,12 @@
 
         if(this.error === ''){
             // Emit an event with the input values
-          this.$emit('phone-input', {
-          countryCode: this.countryCode,
-          phoneNumber: this.phoneNumber,
-          extension: this.extension,
-        }); 
+        //   this.$emit('phone-input', {
+        //   countryCode: this.countryCode,
+        //   phoneNumber: this.phoneNumber,
+        //   extension: this.extension,
+        // }); 
+        this.$emit('update:modelValue', this.phoneNumber);
         }
       },
     },

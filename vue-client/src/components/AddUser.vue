@@ -12,7 +12,7 @@
         </div>
   
         <div class="form-group mb-3 mt-3">
-         <PhoneNumberInputField></PhoneNumberInputField>
+         <PhoneNumberInputField v-model="user.phoneNumber" placeholder="Enter phone number"></PhoneNumberInputField>
         </div>
         <div class="form-group mb-3 mt-3">
           <label for="skill">Skill</label>
