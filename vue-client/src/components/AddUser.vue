@@ -112,8 +112,8 @@
           selectedFile: this.selectedFile
         };
         
-  console.log('Submit Form: username: ' + this.user.userName + ' email:' + this.user.email);
-         console.log('Country code: ' + this.PhoneNumberInputField.countryCode + ' Phone Number:' + this.PhoneNumberInputField.phoneNumber);
+        console.log('Submit Form: username: ' + this.user.userName + ' email:' + this.user.email);
+        console.log(' Phone Number:' + this.user.phoneNumber);
         UserDataService.create(data)
           .then(response => {
            //this.user.id = response.data.id;
