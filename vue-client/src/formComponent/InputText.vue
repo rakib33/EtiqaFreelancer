@@ -12,7 +12,8 @@
             @input="updateInputValue"
             
           />
-          <span v-if="!isValid" class="error-message">{{ errorMessage }}</span>
+          <!-- <span v-if="!isValid" class="error-message">{{ errorMessage }}</span> -->
+          <span v-if="errorMessage" class="error-message">{{ errorMessage }}</span>
         </div>
   
 </template>
@@ -50,35 +51,53 @@ export default {
       type:number,
       default: 3
     },
+    isValid:{
+      type:Boolean,
+      default:true,
+    }
     
   },
   data() {
     return {
       inputValue: '',
-      //errorMessage:'',
+      errorMessage:'',
     };
   },
-  computed: {
-    isValid(props) {
+  // computed: {
+  //   isValid(props) {
+  //     const length = this.inputValue.length;
+  //     console.log('input text field isValid is called!');
+  //     if(this.validator(this.inputValue) && length>= props.minLength && length <= props.maxLength)
+  //     {
+  //       console.log('is valid true');
+  //       return true;
+  //     }
+  //     else{
+  //       console.log('return false');
+  //       return false;
+  //     }
+  //   },
+  //   errorMessage(props) {
+  //     console.log('inputText error message is called.');
+  //     return this.isValid ? '' : `Invalid ${this.label.toLowerCase()}.length minimum:${props.minLength.toLowerCase()} maximum:${props.maxLength.toLowerCase()}`;
+  //   },
+  // },
+  methods: {
+    updateInputValue(props) {
       const length = this.inputValue.length;
-      console.log('input text field isValid is called!');
-      if(this.validator(this.inputValue) && length>= props.minLength && length <= props.maxLength)
+      console.log('input text field isValid is called!' + props.minLength);
+      if(length>= props.minLength && length <= props.maxLength) //this.validator(this.inputValue) && 
       {
         console.log('is valid true');
-        return true;
+        this.errorMessage ='';
+        props.isValid = true;       
+       
       }
       else{
         console.log('return false');
-        return false;
+        props.isValid = false;
+        this.errorMessage=`Invalid User Name.`;
       }
-    },
-    errorMessage(props) {
-      console.log('inputText error message is called.');
-      return this.isValid ? '' : `Invalid ${this.label.toLowerCase()}.length minimum:${props.minLength.toLowerCase()} maximum:${props.maxLength.toLowerCase()}`;
-    },
-  },
-  methods: {
-    updateInputValue() {
       console.log('inputed value:'+this.inputValue);
       this.$emit('update:modelValue', this.inputValue);
     },
