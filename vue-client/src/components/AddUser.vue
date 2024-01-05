@@ -12,7 +12,8 @@
         </div>
   
         <div class="form-group mb-3 mt-3">
-         <PhoneNumberInputField v-model="user.phoneNumber" placeholder="Enter phone number"></PhoneNumberInputField>
+         <!-- <PhoneNumberInputField v-model="user.phoneNumber" placeholder="Enter phone number"></PhoneNumberInputField> -->
+         <TelephoneInputField v-model="user.phoneNumber" id="telephone" label="Telephone"></TelephoneInputField>
         </div>
         <div class="form-group mb-3 mt-3">
           <label for="skill">Skill</label>
@@ -62,7 +63,8 @@
   <script>
   import InputText from '@/formComponent/InputText.vue';
   import EmailInputField from '@/formComponent/EmailInputField.vue';
-  import PhoneNumberInputField from '@/formComponent/PhoneNumberInputField.vue';
+  //import PhoneNumberInputField from '@/formComponent/PhoneNumberInputField.vue';
+  import TelephoneInputField from '@/formComponent/TelephoneInputField.vue';
  // import { useVuelidate } from '@vuelidate/core';
   import UserDataService from "../services/UserDataService";
   
@@ -70,7 +72,8 @@
     components:{
       InputText,
       EmailInputField,
-      PhoneNumberInputField,
+      //PhoneNumberInputField,
+      TelephoneInputField,
     }, 
     name: "add-user",
     data() {
