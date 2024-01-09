@@ -6,16 +6,15 @@
       :id="id"
       :name="id"
       :placeholder="placeholder"
-      :class="{ 'is-invalid': !isValid }"
+      :class="{ 'is-invalid': showError }"
       :required="required"            
       :minlength="minLength"
       :maxlength="maxLength"
       v-model="inputValue"
       @input="updateInputValue"
       
-    />
-    <!-- <span v-if="!isValid" class="error-message">{{ errorMessage }}</span> -->
-    <span v-if="error" class="error-message">{{ error }}</span>
+    /> 
+    <span v-if="showError" class="error-message">{{ error }}</span>
   </div>
 
 </template>
@@ -63,11 +62,12 @@ data() {
 return {
 inputValue: '',
 error:'',
+showError: false,
 };
 },
 
 methods: {
-updateInputValue(props) {
+updateInputValue() {
 const length = this.inputValue.length;
 console.log('input field length: '+ length);
 console.log('min length: '+ this.minLength + ' max length : ' + this.maxLength);
@@ -75,12 +75,11 @@ if(length >= this.minLength && length <= this.maxLength) //this.validator(this.i
 {
   console.log('is valid true');
   this.error ='';
-  props.isValid = true;       
- 
+  this.showError = false;
 }
 else{
   console.log('return false');
-  props.isValid = false;
+  this.showError = true;
   
   if(length <= this.maxLength)
   this.error = 'Please enter a minimum of '+ this.minLength+ ' characters.';

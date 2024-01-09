@@ -5,7 +5,7 @@
       <div class="container" v-if="!submitted">
         <div class="form-group mb-3 mt-3">
           <!-- :validator="validateUsername" -->
-          <InputText id="userName" label="User Name"  v-model="user.userName" :maxLength="30" :minLength="5" :required=true></InputText>
+          <InputTextField id="userName" label="User Name"  v-model="user.userName" :maxLength="30" :minLength="5" :required=true></InputTextField>
         </div>
 
         <div class="form-group mb-3 mt-3">
@@ -17,21 +17,13 @@
          <TelephoneInputField v-model="user.phoneNumber" id="telephone" label="Telephone"></TelephoneInputField>
         </div>
         <div class="form-group mb-3 mt-3">
-          <TextAreaInputField :label="Skill" :required="true" :maxLength="100" :minLength="5" placeholder="Enter skill" v-model="user.skill"></TextAreaInputField>         
+          <TextAreaInputField label="Skill" :required="true" :maxLength="100" :minLength="5" placeholder="Enter skill" v-model="user.skill"></TextAreaInputField>         
         </div>
         <div class="form-group mb-3 mt-3">
-          <TextAreaInputField :label="Hobby" :required="true" :maxLength="100" :minLength="5" placeholder="Enter hobby" v-model="user.hobby"></TextAreaInputField>  
+          <TextAreaInputField label="Hobby" :required="true" :maxLength="100" :minLength="5" placeholder="Enter hobby" v-model="user.hobby"></TextAreaInputField>  
         </div>
-        <div class="form-group mb-3">
-          <label for="file">Upload User Image</label>
-          <input type="file"
-            class="form-control"
-            id="file"
-            @change="handleFileUpload" accept="image/*"
-          />
-          <div class="col-sm-8 mt-3" id="preview">
-            <img height="200" width="200" style="justify-content:center; align-items:center;" v-if="url" :src="url" />
-          </div>
+        <div class="form-group mb-3">         
+          <FileUploadField label="Upload File" :isMultiple="false" accept="image/*" placeholder="Enter user image." :required="true" @file-selected="handleFileSelected"></FileUploadField>
         </div>
         <button type="submit" class="btn btn-success mt-3">Submit</button>
         <!-- @click="saveUser" -->
@@ -46,21 +38,23 @@
   </template>
 
   <script>
-  import InputText from '@/formComponent/InputText.vue';
+  import InputTextField from '@/formComponent/InputTextField.vue';
   import EmailInputField from '@/formComponent/EmailInputField.vue';
   //import PhoneNumberInputField from '@/formComponent/PhoneNumberInputField.vue';
   import TelephoneInputField from '@/formComponent/TelephoneInputField.vue';
   import TextAreaInputField from '@/formComponent/TextAreaInputField.vue';
+  import FileUploadField from '@/formComponent/FileUploadField.vue';
  // import { useVuelidate } from '@vuelidate/core';
   import UserDataService from "../services/UserDataService";
 
   export default {
     components:{
-      InputText,
+      InputTextField,
       EmailInputField,
       //PhoneNumberInputField,
       TelephoneInputField,
       TextAreaInputField,
+      FileUploadField,
     },
     name: "add-user",
     data() {
@@ -75,7 +69,7 @@
           fileName: ""
         },
         url:null,
-        selectedFile: null,
+        uploadedFile: null,
         submitted: false,
         Message:""
       };
@@ -96,10 +90,10 @@
           phoneNumber: this.user.phoneNumber,
           skill: this.user.skill,
           hobby: this.user.hobby,
-          selectedFile: this.selectedFile
+          uploadedFile: this.uploadedFile,
         };
 
-        console.log('Submit Form: username: ' + this.user.userName + ' email:' + this.user.email);
+        console.log('Submit Form: username: ' + this.user.userName + ' email:' + this.user.email + 'phone: '+this.user.phoneNumber+' skill:'+this.user.skill+' hobby :'+this.user.hobby);
         console.log(' Phone Number:' + this.user.phoneNumber);
         UserDataService.create(data)
           .then(response => {
@@ -128,12 +122,9 @@
         this.url = null;
         this.file = null;
       },
-      async handleFileUpload(event) {
-                console.log('selected file is clicked');
-                const file = event.target.files[0];
-                this.url = URL.createObjectURL(file);
-                this.selectedFile = file;
-                console.log('selected file length: ' + this.selectedFile);
+      async handleFileSelected(selectedFile) {           
+        this.uploadedFile = selectedFile;    
+                console.log('selected file length: ' + this.uploadedFile);
                 //display preview image
             }
     },

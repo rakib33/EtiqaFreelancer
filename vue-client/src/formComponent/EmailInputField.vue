@@ -5,14 +5,14 @@
             class="form-control"
             v-model="email"
             type="email"
-            :class="{ 'is-invalid': !isEmailValid }"
+            :class="{ 'is-invalid': showError}"
             :placeholder="placeholder"
             :id="id"
             :name="id"
             :required="required"
             @input="validateEmail"
             />
-            <div v-if="error" class="error-message">{{ error }}</div>
+            <div v-if="showError" class="error-message">{{ error }}</div>
          </div>   
 </template>
 <script>
@@ -47,22 +47,23 @@ export default{
     return{
         email:'',
         error:'',
+        showError:false,
     };
  },
  methods:{
   // isValid(props){
   //   return props.isEmailValid;
   // },
-    validateEmail(props){
+    validateEmail(){
       console.log('émail valiadetEmail is called.');
          // Basic email validation using a regular expression
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if(emailRegex.test(this.email)){
       this.error ='';
-      props.isEmailValid = false;
+      this.showError = false;
     
       }else{
-        props.isEmailValid = true;
+        this.showError = true;
         this.error = 'Invalid email address';
       }
     

@@ -92,7 +92,9 @@
   .extension {
     margin-right: 5px;
   }
-  
+  .is-invalid {
+  border: 1px solid red;
+}
   .error-message {
     color: red;
     margin-top: 5px;
