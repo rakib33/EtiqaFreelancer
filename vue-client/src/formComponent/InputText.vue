@@ -8,18 +8,20 @@
             :placeholder="placeholder"
             :class="{ 'is-invalid': !isValid }"
             :required="required"            
+            :minlength="minLength"
+            :maxlength="maxLength"
             v-model="inputValue"
             @input="updateInputValue"
             
           />
           <!-- <span v-if="!isValid" class="error-message">{{ errorMessage }}</span> -->
-          <span v-if="errorMessage" class="error-message">{{ errorMessage }}</span>
+          <span v-if="error" class="error-message">{{ error }}</span>
         </div>
   
 </template>
 
 <script>
-import { number } from 'yup';
+import { number, String } from 'yup';
 
 export default {
   props: {
@@ -45,11 +47,11 @@ export default {
     },
     maxLength:{
       type:number,
-      default: 50
+      default: 100,
     },
     minLength:{
       type:number,
-      default: 3
+      default: 0,    
     },
     isValid:{
       type:Boolean,
@@ -60,43 +62,30 @@ export default {
   data() {
     return {
       inputValue: '',
-      errorMessage:'',
+      error:'',
     };
   },
-  // computed: {
-  //   isValid(props) {
-  //     const length = this.inputValue.length;
-  //     console.log('input text field isValid is called!');
-  //     if(this.validator(this.inputValue) && length>= props.minLength && length <= props.maxLength)
-  //     {
-  //       console.log('is valid true');
-  //       return true;
-  //     }
-  //     else{
-  //       console.log('return false');
-  //       return false;
-  //     }
-  //   },
-  //   errorMessage(props) {
-  //     console.log('inputText error message is called.');
-  //     return this.isValid ? '' : `Invalid ${this.label.toLowerCase()}.length minimum:${props.minLength.toLowerCase()} maximum:${props.maxLength.toLowerCase()}`;
-  //   },
-  // },
+ 
   methods: {
     updateInputValue(props) {
       const length = this.inputValue.length;
-      console.log('input text field isValid is called!' + props.minLength);
-      if(length>= props.minLength && length <= props.maxLength) //this.validator(this.inputValue) && 
+      console.log('input field length: '+ length);
+      console.log('min length: '+ this.minLength + ' max length : ' + this.maxLength);
+      if(length >= this.minLength && length <= this.maxLength) //this.validator(this.inputValue) && 
       {
         console.log('is valid true');
-        this.errorMessage ='';
+        this.error ='';
         props.isValid = true;       
        
       }
       else{
         console.log('return false');
         props.isValid = false;
-        this.errorMessage=`Invalid User Name.`;
+        
+        if(length <= this.maxLength)
+        this.error = 'Please enter a minimum of '+ this.minLength+ ' characters.';
+        else
+        this.error = 'Text cannot exceed '+ this.maxLength+ ' characters.';
       }
       console.log('inputed value:'+this.inputValue);
       this.$emit('update:modelValue', this.inputValue);
