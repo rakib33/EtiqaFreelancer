@@ -70,7 +70,7 @@
 
   </div>
   <!-- The Modal class="modal" -->
-  <div id="myModal" class="modal">
+  <div id="myModal" class="modal fade" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
 
