@@ -30,28 +30,30 @@
                     <th>Email</th>
                     <th>Phone Number</th>
                     <th>Skills</th>
-                    <th>Hobby</th>                   
-                    <th>File Name</th>
+                    <th>Hobby</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>          
-                <tr :class="{ active: index == currentIndex}" v-for="(user,index) in users" 
+                <tr :class="{ active: index == currentIndex}" v-for="(user,index) in paginatedUser" 
                 @click="setActiveUser(user, index)" :key="index">
-                    <td>{{index +1}}</td>
+                    <td>{{index + this.startIndex +1}}</td>
                     <td>{{user.userName}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.phoneNumber}}</td>
                     <td>{{user.skillSets}}</td>
-                    <td>{{user.hobby}}</td>
-                    <td>{{user.fileName}}</td>
+                    <td>{{user.hobby}}</td>                 
                     <!--<td> <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" @click="UpdateUser(user.id,index)">Update User</button></td>-->
-                    <td> <button @click.stop="deleteNewUser(user.id)" class="btn btn-danger">
-                      Delete</button></td>
+                    <td> 
+                      <button @click.stop="deleteNewUser(user.id)" class="btn btn-danger">
+                        Delete
+                      </button>
+                    </td>
                 </tr>
             </tbody>
           </table>
          <p v-else> No user available</p>
+         <custom-pagination :currentPage="currentPage" :totalPages="totalPages" :changePage="changePage"></custom-pagination>
         </div>
       </div>
     </div>
@@ -96,21 +98,28 @@
 </template>
 
 <script>
+import CustomPagination from '../formComponent/CustomPagination.vue';
 import UserDataService from '../services/UserDataService';
 import UserDetails from './UserDetails.vue';
 import AddUser from './AddUser.vue';
 import LoadingBar from './LoadingBar.vue';
-
+import userData from '@/data/userData.json';
 export default {
   name: "Users-list",
  components:{
     UserDetails,
     AddUser,
     LoadingBar,
+    CustomPagination,
 },
   data() {
     return {
+      currentPage:1,
+      totalPages:5,
+      itemPerPage:2,
+      startIndex:0,
       users: [],
+      paginatedUser:[],
       currentUser: null,
       currentIndex: -1,
       key: "",
@@ -141,7 +150,17 @@ export default {
         console.log('get method is called');
         this.isLoading = true;
         this.progress = 0;
-        
+        this.getUserDataJsonFile();
+        //this.getUserDataFromServer();
+    },
+    getUserDataJsonFile(){
+          this.users = userData.data;
+          this.status = userData.status;
+          console.log(this.status);
+          console.log('data' + this.users);
+          console.log(userData.data.data);     
+    },
+    getUserDataFromServer(){
         UserDataService.getAll()
         .then(response => {         
           console.log(response.data);
@@ -149,27 +168,27 @@ export default {
           this.status = response.data.status;
           console.log(this.status);
           console.log('data' + this.users);
-          console.log(response.data.data);
-
-           // API request completed
+          console.log(response.data.data);        
           this.isLoading = false;
-          alert("API request completed!");
+          
         })
         .catch(e => {
-          console.log('[exception]->'+e);
-           // Handle API request error
+          console.log('[exception]->'+e);        
            this.isLoading = false;
           console.error("API request failed:", e.error);
         });
     },
     async deleteNewUser(id) {
-                console.log('id to be deleted' + id);
+              console.log('id to be deleted' + id);       
+             
                UserDataService.delete(id).then(
                     (response) => {
                         console.log(response.data)                       
                         this.status = response.data.status
-                        if (this.status === 'Success') {
-                            this.refreshList();
+                        if (this.status === 'Success') {  
+                            this.removeObjectFromArray(id);    
+                            this.calculateTotalPage(); 
+                            this.calculatePaginatedUsers();   
                             alert("Delete Successful");
                         }                          
                         else
@@ -179,11 +198,18 @@ export default {
 
 
             },
+  removeObjectFromArray(idtoRemove){
+    console.log('remove object from array list id: '+ idtoRemove);
+    //filter will take all data excluding id of removal object
+    this.users = this.users.filter(obj => obj.id !== idtoRemove);
+   
+    //this.setActiveUser(null,-1);
+  },
   async  refreshList() {
     console.log('Refresh List is called!');
-      this.retrieveUsers();
-      this.currentUser = null;
-      this.currentIndex = -1;
+      this.retrieveUsers();     
+      //this.setActiveUser(null,-1);
+      this.changePage(this.currentPage);
     },
 
     setActiveUser(tutorial, index) {
@@ -204,19 +230,53 @@ export default {
     
     searchByKey() {
         UserDataService.findByKey(this.key)
-        .then(response => {
-          //this.users = response.data;
+        .then(response => {          
           this.users = response.data.data;
           this.setActiveUser(null);
-          console.log('folered user data : '+this.users);
+          console.log('filtered user data : '+this.users);
         })
         .catch(e => {
           console.log(e);
         });
+    },
+     // Your method for changing the page in the table
+     changePage(page) {
+      console.log('change page is hited: '+ page);
+      // Update your table data based on the selected page
+      // For example, fetch data from an API with the new page number
+      this.currentPage = page;
+      // ... fetch data based on the new page
+      this.calculatePaginatedUsers();
+    },
+    getUsersLength() {
+      // Get the length of the users array
+      const length = this.users.length;
+      console.log("Number of users:", length);
+      return length;
+    },
+    calculateTotalPage(){
+      this.totalPages = Math.ceil(this.getUsersLength() / this.itemPerPage);
+      console.log(' total page: '+ this.totalPages);
+    },
+    calculatePaginatedUsers() {
+      if(this.currentPage > this.totalPages)
+        this.currentPage = this.totalPages;
+      console.log('total page: '+ this.totalPages+' current page :'+ this.currentPage);
+      this.startIndex = this.currentPage > 1 ? (this.currentPage - 1) * this.itemPerPage : 0;
+      console.log('Item per page'+this.itemPerPage);
+      const endIndex = this.startIndex + this.itemPerPage;
+      console.log('start index:'+ this.startIndex + ' endIndex: '+endIndex);
+      console.log('paginate user data : '+this.users);
+      this.paginatedUser = this.users.slice(this.startIndex, endIndex);
+      console.log('paginated user: '+  this.paginatedUser);
+      this.currentUser = this.paginatedUser[0];
     }
   },
   mounted() {
-    this.retrieveUsers();
+    this.retrieveUsers();   
+    this.calculateTotalPage();
+    this.changePage(1);    
+    //this.calculatePaginatedUsers();
   }
 };
 </script>

@@ -9,6 +9,7 @@
     :accept="accept"
     :placeholder="placeholder"
     :required="required"
+    
 />
 
 <!-- accept="image/*" accept=".pdf, .doc, .docx"-->
@@ -70,19 +71,25 @@ return {
   isMultiple:false, 
   error:'',
   url:null,
-};
+  uploadedFile:null,
+}
 },
 
 methods: {
 
     async handleFileChange(event) {
                 console.log('selected file is clicked');
-                this.selectedFile = event.target.files;
-                this.url = URL.createObjectURL(event.target.files[0]);
+                this.uploadedFile = event.target.files;
+             
+                this.file=this.uploadedFile[0];
+                console.log('File Name:'+ this.file.name);
                 
-                 // Emit the selected file to the parent component
-                this.$emit('file-selected', this.selectedFile);
-                console.log('selected file length: ' + this.selectedFile);               
+                this.url = URL.createObjectURL(this.uploadedFile[0]);
+                
+                 // Emit the selected file to the parent component.
+                 //file-selected is a custom event named that is catched from parent component.
+                this.$emit('file-selected', this.uploadedFile);
+                console.log('File size: '+this.file['size']);
             },
    async clearImagePreview() {
       this.url = null;

@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "data": [
+
+		{
+			"id": 6,
+			"userName": "asas",
+			"email": "r@g.com",
+			"phoneNumber": "1212",
+			"skillSets": "121",
+			"hobby": "12",
+			"fileName": null,
+			"fileData": null
+		},
+		{
+			"id": 7,
+			"userName": "asas",
+			"email": "a@g.c",
+			"phoneNumber": "01920202882",
+			"skillSets": "asda",
+			"hobby": "asda",
+			"fileName": null,
+			"fileData": null
+		},
+		{
+			"id": 8,
+			"userName": "asasas",
+			"email": "asdjsa@jhsa.com",
+			"phoneNumber": "+880 1920 202882",
+			"skillSets": "asaasa",
+			"hobby": "asasasas",
+			"fileName": null,
+			"fileData": null
+		},
+		{
+			"id": 9,
+			"userName": "asasas",
+			"email": "asdjsa@jhsa.com",
+			"phoneNumber": "+880 1920 202882",
+			"skillSets": "test skill",
+			"hobby": "Sleeping",
+			"fileName": null,
+			"fileData": null
+		},
+		{
+			"id": 10,
+			"userName": "rakibul",
+			"email": "ra@g.com",
+			"phoneNumber": "+880 1920 202882",
+			"skillSets": "asdada",
+			"hobby": "asdasdaa",
+			"fileName": null,
+			"fileData": null
+		},
+		{
+			"id": 11,
+			"userName": "sadsad",
+			"email": "a@g.com",
+			"phoneNumber": "+880 1920 202882",
+			"skillSets": "asdsad",
+			"hobby": "asdasda",
+			"fileName": null,
+			"fileData": null
+		},
+		{
+			"id": 12,
+			"userName": "Redoan",
+			"email": "red@gmail.com",
+			"phoneNumber": "+880 1920 202882",
+			"skillSets": "C#,ASP.NET Core",
+			"hobby": "Travelling , Reading",
+			"fileName": null,
+			"fileData": null
+		},
+		{
+			"id": 13,
+			"userName": "Redoan",
+			"email": "red@gmail.com",
+			"phoneNumber": "+880 1920 202882",
+			"skillSets": "C#,ASP.NET Core",
+			"hobby": "Travelling , Reading",
+			"fileName": null,
+			"fileData": null
+		}
+	]
+}
