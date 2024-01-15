@@ -30,15 +30,4 @@
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\js\189.8196cd45.js" />
-    <None Include="wwwroot\js\189.8196cd45.js.map" />
-    <None Include="wwwroot\js\737.bbbae57d.js" />
-    <None Include="wwwroot\js\737.bbbae57d.js.map" />
-    <None Include="wwwroot\js\app.19f9bc9e.js" />
-    <None Include="wwwroot\js\app.19f9bc9e.js.map" />
-    <None Include="wwwroot\js\chunk-vendors.59474616.js" />
-    <None Include="wwwroot\js\chunk-vendors.59474616.js.map" />
-  </ItemGroup>
-
 </Project>

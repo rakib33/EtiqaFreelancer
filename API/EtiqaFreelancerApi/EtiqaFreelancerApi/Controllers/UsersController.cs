@@ -39,7 +39,8 @@ namespace EtiqaFreelancerApi.Controllers
                 }
                 if(!string.IsNullOrEmpty(key))
                 {
-                    userList = userList.Where(t => t.UserName.Contains(key) || t.PhoneNumber.Contains(key) || t.Email.Contains(key)).ToList();
+                    key= key.ToLower();
+                    userList = userList.Where(t => t.UserName.ToLower().Contains(key) || t.PhoneNumber.Contains(key) || t.Email.ToLower().Contains(key)).ToList();
                 }
 
                 return Ok(new { status = AppStatus.SuccessStatus, data = userList });
@@ -118,9 +119,7 @@ namespace EtiqaFreelancerApi.Controllers
                             //};
 
                             user.FileName = formFile.FileName;
-                            user.FileData = fileData;
-                            //_dbContext.Files.Add(fileModel);
-                            //_dbContext.SaveChanges();
+                            user.FileData = fileData;                         
                         }
                     }
                 }
