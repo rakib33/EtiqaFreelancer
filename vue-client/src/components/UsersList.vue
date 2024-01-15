@@ -1,5 +1,4 @@
-<template>
-  <loading-bar :is-loading="isLoading" :progress="progress"></loading-bar>
+<template> 
   <div class="row">
     <div class="col-md-9">
       <div class="input-group mb-3">
@@ -53,7 +52,7 @@
             </tbody>
           </table>
          <p v-else> No user available</p>
-         <custom-pagination :currentPage="currentPage" :totalPages="totalPages" :changePage="changePage"></custom-pagination>
+         <custom-pagination v-if="users" :currentPage="currentPage" :totalPages="totalPages" :changePage="changePage"></custom-pagination>
         </div>
       </div>
     </div>
@@ -102,14 +101,12 @@ import CustomPagination from '../formComponent/CustomPagination.vue';
 import UserDataService from '../services/UserDataService';
 import UserDetails from './UserDetails.vue';
 import AddUser from './AddUser.vue';
-import LoadingBar from './LoadingBar.vue';
 import userData from '@/data/userData.json';
 export default {
   name: "Users-list",
  components:{
     UserDetails,
     AddUser,
-    LoadingBar,
     CustomPagination,
 },
   data() {
@@ -131,28 +128,29 @@ export default {
     };
   },
   methods: {
-    openModal(){
-      this.$refs.AddUser.isOpen = true;
-    },
-    getAllData() {
-      // Simulating an API request (replace this with your actual API call)
-      return new Promise((resolve) => {
-        const interval = setInterval(() => {
-          this.progress += 2; // You can adjust the increment value
-          if (this.progress >= 100) {
-            clearInterval(interval);
-            resolve();
-          }
-        }, 100); // You can adjust the interval time
-      });
-    },
-   async retrieveUsers() {
-        console.log('get method is called');
-        this.isLoading = true;
-        this.progress = 0;
-       // await new Promise(resolve=>setTimeout(resolve,500));
+
+    retrieveUsers() {
+        console.log('retrieveUsers get method is called');
         //this.getUserDataJsonFile();
-        this.getUserDataFromServer();
+        //this.getUserDataFromServer();
+        UserDataService.getAll()
+        .then(response => {
+         
+          console.log(response.data);
+          this.users = response.data.data;
+          this.status = response.data.status;
+          console.log(this.status);
+         
+          console.log(response.data.data);
+          if(this.users){
+            console.log('data' + this.users);
+            this.calculateTotalPage();
+            this.changePage(this.currentPage); //inial page 1   
+          }
+        })
+        .catch(e => {
+          console.log('[exception]->'+e);
+        });
     },
    async getUserDataJsonFile(){
           this.users = userData.data;
@@ -168,18 +166,15 @@ export default {
           this.users = response.data.data;
           this.status = response.data.status;
           console.log(this.status);
-          console.log('data' + this.users);
-          console.log(response.data.data);        
-          this.isLoading = false;
-          
+          console.log('data: ' + this.users);
+          console.log(response.data.data);
         })
         .catch(e => {
-          console.log('[exception]->'+e);        
-           this.isLoading = false;
+          console.log('[exception]->'+e);   
           console.error("API request failed:", e.error);
         });
     },
-    async deleteNewUser(id) {
+    deleteNewUser(id) {
               console.log('id to be deleted' + id);       
              
                UserDataService.delete(id).then(
@@ -206,16 +201,16 @@ export default {
    
     //this.setActiveUser(null,-1);
   },
-  async  refreshList() {
+  refreshList() {
     console.log('Refresh List is called!');
       this.retrieveUsers();     
       //this.setActiveUser(null,-1);
       this.changePage(this.currentPage);
     },
 
-    setActiveUser(tutorial, index) {
-      this.currentUser = tutorial;
-      this.currentIndex = tutorial ? index : -1;
+    setActiveUser(user, index) {
+      this.currentUser = user;
+      this.currentIndex = user ? index : -1;
     },
 
     removeAllUsers() {
@@ -275,9 +270,8 @@ export default {
   },
   mounted() {
     this.retrieveUsers();   
-    this.calculateTotalPage();
-    this.changePage(1);    
-    //this.calculatePaginatedUsers();
+    // this.calculateTotalPage();
+    // this.changePage(1);    
   }
 };
 </script>

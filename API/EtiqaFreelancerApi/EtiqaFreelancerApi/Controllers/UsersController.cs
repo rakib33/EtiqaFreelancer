@@ -52,29 +52,7 @@ namespace EtiqaFreelancerApi.Controllers
 
         }
 
-        //[HttpGet]
-        //[ResponseCache(Duration =5)]
-        //public async Task<ActionResult<List<User>>> Get(string key)
-        //{
-        //    try
-        //    {
-        //        var userList = await _user.GetUsers();
-        //        if (userList == null || userList.Count == 0)
-        //        {
-        //            return Ok(HttpStatusCode.NotFound);
-        //        }
-
-        //        userList = userList.Where(t => t.UserName.Contains(key) || t.PhoneNumber.Contains(key) || t.Email.Contains(key)).ToList();
-                
-
-        //        return Ok(new { status = AppStatus.SuccessStatus, data = userList });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Ok(new { status = AppStatus.ErrorStatus, data = ex });
-        //    }
-
-        //}
+       
 
         [HttpPost]
         public async Task<ActionResult> RegisterUser([FromForm] User user)
