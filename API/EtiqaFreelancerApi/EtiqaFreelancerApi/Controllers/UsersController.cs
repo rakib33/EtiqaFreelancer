@@ -35,7 +35,8 @@ namespace EtiqaFreelancerApi.Controllers
                 var userList = await _user.GetUsers();
                 if(userList == null || userList.Count == 0)
                 {
-                    return Ok(HttpStatusCode.NotFound);
+                    return Ok(new { status = HttpStatusCode.NotFound });
+                    //return Ok(HttpStatusCode.NotFound);
                 }
                 if(!string.IsNullOrEmpty(key))
                 {

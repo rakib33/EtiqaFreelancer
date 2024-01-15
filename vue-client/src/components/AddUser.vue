@@ -106,6 +106,7 @@
             console.log('Form submitted! call parent refreshList.');
             this.newUser();
             this.$emit('refreshList');
+            alert('Save successfully');
           })
           .catch(e => {
             this.newUser();

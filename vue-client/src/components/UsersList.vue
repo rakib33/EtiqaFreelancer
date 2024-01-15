@@ -1,4 +1,5 @@
 <template> 
+<div>
   <div class="row">
     <div class="col-md-9">
       <div class="input-group mb-3">
@@ -20,8 +21,8 @@
             <div> <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Add User</button> </div>
           </div>
         </div>
-        <div class="card-body">
-          <table v-if="users" class="table table-hover">
+        <div class="card-body table-responsive">
+          <table v-if="users" class="table table-bordered table-hover" style="overflow-x: auto;">
             <thead>
                 <tr>
                     <th></th>
@@ -83,7 +84,7 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">                     
-                      <add-user @refreshList="refreshList"></add-user>
+                      <add-user  @refreshList="refreshList"></add-user>
                     </div>
 
                     <!-- Modal footer -->
@@ -94,6 +95,7 @@
                 </div>
             </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -230,13 +232,27 @@ export default {
         UserDataService.findByKey(this.key)
         .then(response => {          
           this.users = response.data.data;
-          this.setActiveUser(null);
+          this.calculateTotalPage();
+          this.changePage(1);  
           console.log('filtered user data : '+this.users);
         })
         .catch(e => {
           console.log(e);
         });
     },
+    filteredList() {
+
+    const key = this.key.toLowerCase();
+    return this.users.filter(user => {
+      return (
+        user.userName.toLowerCase().includes(key) ||
+        user.phoneNumber.toLowerCase().includes(key) ||
+        user.email.toLowerCase().includes(key) ||
+        user.skillSets.toLowerCase().includes(key) ||
+        user.hobby.toLowerCase().includes(key)
+      );
+    });
+  },
      // Your method for changing the page in the table
      changePage(page) {
       console.log('change page is hited: '+ page);
