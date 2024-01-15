@@ -5,8 +5,9 @@
       <div class="cube"></div>
       <div class="cube"></div>
     </div>  -->
-    <div v-if="!isloaded">
+    <div id="loading" v-if="!isloaded">
         <div>Page Loading...</div>
+        <!-- <img id="loading-image" src="path/to/ajax-loader.gif" alt="Loading..." /> -->
     </div>
   </template>
   
@@ -30,6 +31,29 @@
     }
   </script>
   
+<style>
+#loading {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  opacity: 0.7;
+  background-color: #fff;
+  z-index: 99;
+}
+
+#loading-image {
+  position: absolute;
+  top: 100px;
+  left: 240px;
+  z-index: 100;
+}
+</style>
+
+
   <!-- <style lang="scss" scoped>
      $colors: #8CC271, #69BEEB, #F5AA39, #E9643B;
   
