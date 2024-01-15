@@ -652,6 +652,101 @@ class UserDataService {
   
   export default new UserDataService();
 ```
+
+# FormComponent
+We create our own reusable custom form component like input text field, email input field or telephone field etc.
+
+![image](https://github.com/rakib33/Freelancer/assets/10026710/85cc7661-7179-4f95-892e-6da3b753bd14)
+
+# Email Input Field 
+Lets look at our custom email input field . This field contains basic email template , properties and methods for validation.
+
+```
+<template>
+         <div class="form-group mb-3 mt-3">
+            <label :for="id">{{ label }}</label>
+            <input
+            class="form-control"
+            v-model="email"
+            type="email"
+            :class="{ 'is-invalid': showError}"
+            :placeholder="placeholder"
+            :id="id"
+            :name="id"
+            :required="required"
+            @input="validateEmail"
+            />
+            <div v-if="showError" class="error-message">{{ error }}</div>
+         </div>   
+</template>
+<script>
+export default{
+    props: {
+    id: {
+      type: String,
+      required: true,
+    },
+    label: {
+      type: String,
+      required: true,
+    },
+    required:{
+      type: Boolean, default: false
+    },
+    validator: {
+      type: Function,
+      default: () => () => false,
+    },
+    placeholder:{
+      type: String,
+      required:false,
+      default:'',
+    }, 
+    isEmailValid:{
+      type:Boolean,
+      default:false,
+    }
+  },
+ data(){
+    return{
+        email:'',
+        error:'',
+        showError:false,
+    };
+ },
+ methods:{
+    validateEmail(){
+      console.log('émail valiadetEmail is called.');
+         // Basic email validation using a regular expression
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if(emailRegex.test(this.email)){
+      this.error ='';
+      this.showError = false;
+    
+      }else{
+        this.showError = true;
+        this.error = 'Invalid email address';
+      }
+    
+      this.$emit('update:modelValue', this.email);
+    },
+ },
+
+};
+</script>
+
+<style scoped>
+.is-invalid {
+  border: 1px solid red;
+}
+.error-message {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 0.2em;
+}
+</style>
+```
+
 # Build 
 To create a production build open visual studio code terminal. short key [Ctrl+Shift+~] and run this command. This will create a dist folder.
 
