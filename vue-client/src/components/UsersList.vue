@@ -52,7 +52,7 @@
             </tbody>
           </table>
          <p v-else> No user available</p>
-         <custom-pagination v-if="users" :currentPage="currentPage" :totalPages="totalPages" :changePage="changePage"></custom-pagination>
+         <custom-pagination v-if="Ispagination" :currentPage="currentPage" :totalPages="totalPages" :changePage="changePage"></custom-pagination>
         </div>
       </div>
     </div>
@@ -125,6 +125,7 @@ export default {
       status: '',
       isLoading:false,
       progress:0,
+      Ispagination:false,
     };
   },
   methods: {
@@ -146,6 +147,7 @@ export default {
             console.log('data' + this.users);
             this.calculateTotalPage();
             this.changePage(this.currentPage); //inial page 1   
+            this.Ispagination = true;
           }
         })
         .catch(e => {
@@ -205,7 +207,7 @@ export default {
     console.log('Refresh List is called!');
       this.retrieveUsers();     
       //this.setActiveUser(null,-1);
-      this.changePage(this.currentPage);
+      //this.changePage(this.currentPage);
     },
 
     setActiveUser(user, index) {

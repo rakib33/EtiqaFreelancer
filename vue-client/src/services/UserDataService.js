@@ -18,7 +18,7 @@ class UserDataService {
       formData.append("phoneNumber", data.phoneNumber);
       formData.append("skillSets", data.skill);
       formData.append("hobby", data.hobby);
-      formData.append("file", data.selectedFile);
+      //formData.append("file", data.selectedFile);
             
       console.log('user save api is called with skill:'+data.skill);
       console.log('data username:'+data.userName);

@@ -1,5 +1,6 @@
-<template>  
-  <form @submit.prevent="submitForm" enctype="multipart/form-data">
+<template>
+<!--    -->
+  <form @submit.prevent="submitForm">
     <input type="text" v-model="user.id" hidden/>
     <div class="submit-form">
       <div class="container" v-if="!submitted">
@@ -33,8 +34,8 @@
           </div>        -->
           <!-- <FileUploadField label="Upload File" :isMultiple="false" accept="image/*" placeholder="Enter user image." :required="true" @file-selected="handleFileSelected"></FileUploadField> -->
         </div>
-        <button type="submit" @click="submitForm" class="btn btn-success mt-3">Submit</button>
-        <!-- @click="saveUser" -->
+        <button type="submit"  class="btn btn-success mt-3">Submit</button>
+        <!-- @click="submitForm" -->
       </div>
 
       <div v-else>
@@ -72,7 +73,7 @@
           fileName: ""
         },
         url:null,
-        selectedFile: null,
+        //selectedFile: null,
         submitted: false,
         Message:""
       };
@@ -85,14 +86,14 @@
         return alphanumericRegex.test(userName);
       },
       submitForm() {
-
+        console.log('Submit form is clicked.');
         var data = {
           userName: this.user.userName,
           email: this.user.email,
           phoneNumber: this.user.phoneNumber,
           skill: this.user.skill,
           hobby: this.user.hobby,
-          selectedFile: this.selectedFile,
+          //selectedFile: this.selectedFile,
         };
 
         console.log('Submit Form: username: ' + this.user.userName + ' email:' + this.user.email + 'phone: '+this.user.phoneNumber+' skill:'+this.user.skill+' hobby :'+this.user.hobby);
@@ -121,13 +122,13 @@
         this.url = null;
         this.file = null;
       },
-      handleFileSelected(uploadedFile) {           
-            console.log('handleFileSelected is called.');
-            this.selectedFile = uploadedFile;
-            console.log('selected file name: ' + this.selectedFile[0].name);
-            this.file= this.selectedFile[0];
-            console.log('File size: '+this.file['size']);
-            }
+      // handleFileSelected(uploadedFile) {           
+      //       console.log('handleFileSelected is called.');
+      //       this.selectedFile = uploadedFile;
+      //       console.log('selected file name: ' + this.selectedFile[0].name);
+      //       this.file= this.selectedFile[0];
+      //       console.log('File size: '+this.file['size']);
+      //       }
     },
     async handleFileUpload(event) {
                 console.log('selected file is clicked');

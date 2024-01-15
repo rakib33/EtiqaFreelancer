@@ -15,7 +15,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "", //swagger
-      //"applicationUrl": "https://localhost:7222;http://localhost:5063",
+     // "applicationUrl": "https://localhost:7222;http://localhost:5063",
      "applicationUrl": "https://freelancer33-f16a7093777b.herokuapp.com",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

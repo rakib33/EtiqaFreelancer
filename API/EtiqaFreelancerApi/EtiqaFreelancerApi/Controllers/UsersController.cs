@@ -27,7 +27,7 @@ namespace EtiqaFreelancerApi.Controllers
 
         //[DisableCors]
         [HttpGet]
-        [ResponseCache(Duration =1)]
+       // [ResponseCache(Duration =1)]
         public async Task<ActionResult<List<User>>> Get(string key)
         {
             try
@@ -39,8 +39,8 @@ namespace EtiqaFreelancerApi.Controllers
                 }
                 if(!string.IsNullOrEmpty(key))
                 {
-                    key= key.ToLower();
-                    userList = userList.Where(t => t.UserName.ToLower().Contains(key) || t.PhoneNumber.Contains(key) || t.Email.ToLower().Contains(key)).ToList();
+                    //key= key.ToLower();
+                    userList = userList.Where(t => t.UserName.Contains(key) || t.PhoneNumber.Contains(key) || t.Email.Contains(key)).ToList();
                 }
 
                 return Ok(new { status = AppStatus.SuccessStatus, data = userList });
@@ -59,10 +59,11 @@ namespace EtiqaFreelancerApi.Controllers
         {
             try
             {
+                #region FileUpload
                 //var file = Request.Form.Files[0]; //for single file
-                var formFiles = Request.Form.Files; //Request.Form.Files .get all file
-                var folderName = Path.Combine("wwwroot", "uploads");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                //var formFiles = Request.Form.Files; //Request.Form.Files .get all file
+                //var folderName = Path.Combine("wwwroot", "uploads");
+                //var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
                 //if (file.Length > 0)
                 //{
@@ -78,36 +79,38 @@ namespace EtiqaFreelancerApi.Controllers
                 //{
                 //    return BadRequest();
                 //}
-                foreach (var formFile in formFiles)
-                {
-                    if (formFile.Length > 0)
-                    {
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            await formFile.CopyToAsync(memoryStream);
+                //foreach (var formFile in formFiles)
+                //{
+                //    if (formFile.Length > 0)
+                //    {
+                //        using (var memoryStream = new MemoryStream())
+                //        {
+                //            await formFile.CopyToAsync(memoryStream);
 
-                            // Convert the IFormFile to a byte array
-                            var fileData = memoryStream.ToArray();
+                //            // Convert the IFormFile to a byte array
+                //            var fileData = memoryStream.ToArray();
 
-                            // Save the file data to the database
-                            //var fileModel = new FileModel
-                            //{
-                            //    FileName = formFile.FileName,
-                            //    FileData = fileData
-                            //};
+                //            // Save the file data to the database
+                //            //var fileModel = new FileModel
+                //            //{
+                //            //    FileName = formFile.FileName,
+                //            //    FileData = fileData
+                //            //};
 
-                            user.FileName = formFile.FileName;
-                            user.FileData = fileData;                         
-                        }
-                    }
-                }
+                //            user.FileName = formFile.FileName;
+                //            user.FileData = fileData;                         
+                //        }
+                //    }
+                //}
+                #endregion
+
                 User saveUser = await  _user.AddUser(user);
                 return Ok(new UserResponseModel { Status = AppStatus.SuccessStatus, Data = saveUser });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex}");
-              //  return Ok(new UserResponseModel { Status = AppStatus.ErrorStatus, Exception = ex});
+               // return StatusCode(500, $"Internal server error: {ex}");
+               return Ok(new UserResponseModel { Status = AppStatus.ErrorStatus, Exception = ex});
             }
         }
 
