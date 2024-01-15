@@ -747,6 +747,50 @@ export default{
 </style>
 ```
 
+## AddUser.vue Form
+We will apply all our custom Form Component in any Form . The AddUser.vue contains some field User Name, Email, Telephone and some text field.
+
+```
+<template>
+  <form @submit.prevent="submitForm">
+    <input type="text" v-model="user.id" hidden/>
+    <div class="submit-form">
+      <div class="container" v-if="!submitted">
+        <div class="form-group mb-3 mt-3">          
+          <InputTextField id="userName" label="User Name"  v-model="user.userName" :maxLength="30" :minLength="5" :required=true></InputTextField>
+        </div>
+
+        <div class="form-group mb-3 mt-3">
+         <EmailInputField id="email" label="Email" v-model="user.email" required=true is-email-valid=false placeholder="Enter email address"></EmailInputField>
+        </div>
+
+        <div class="form-group mb-3 mt-3">         
+         <TelephoneInputField v-model="user.phoneNumber" id="telephone" label="Telephone"></TelephoneInputField>
+        </div>
+        <div class="form-group mb-3 mt-3">
+          <TextAreaInputField label="Skill" :required="true" :maxLength="100" :minLength="5" placeholder="Enter skill" v-model="user.skill"></TextAreaInputField>         
+        </div>
+        <div class="form-group mb-3 mt-3">
+          <TextAreaInputField label="Hobby" :required="true" :maxLength="100" :minLength="5" placeholder="Enter hobby" v-model="user.hobby"></TextAreaInputField>  
+        </div>       
+        <button type="submit"  class="btn btn-success mt-3">Submit</button>        
+      </div>
+      <div v-else>
+        <h4>{{ Message }}</h4>       
+      </div>
+    </div>
+  </form>
+  </template>
+
+```
+
+you can see TextAreaInputField form component is reused for both Skill and Hobby field. For telephone input filed vue-tel-input is used here. Install vue-tel-input 
+by following npm command.
+
+```
+npm install vue-tel-input
+```
+
 # Build 
 To create a production build open visual studio code terminal. short key [Ctrl+Shift+~] and run this command. This will create a dist folder.
 
