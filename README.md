@@ -1012,20 +1012,38 @@ And Main branch has local data storage.Hear we Use MS SQL Server. Heroku Project
 
 1. Index Page to display all user list.
 
-   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/09a2f499-74e7-4b25-a2aa-93a11efe1a14)
+   ![image](https://github.com/rakib33/Freelancer/assets/10026710/8c5e37af-6b8b-46d8-8fdc-b9973bb1efec)
+
 
 
 2. Add user button will open user modal to add new user and update the user list.
 
-   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/3b122d3e-2d80-466d-b7a0-ff3228faa1c6)
+   ![image](https://github.com/rakib33/Freelancer/assets/10026710/3b01534b-dc2c-4c36-82e6-fca93b14a43f)
+
+3. Add user form validation when touch.
+
+   ![image](https://github.com/rakib33/Freelancer/assets/10026710/f08b4b5a-228b-4660-8b32-2650922bfbaa)
+
+4. Click delete button to delete a user and after success list will be updated.
+
+   ![image](https://github.com/rakib33/Freelancer/assets/10026710/258c0cff-1b1a-4844-a83c-6c2c2461cb3c)
 
 
-3. Click delete button to delete a user and after success list will be updated.
-
-   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/cc8794e3-d51a-45b6-9e03-236acd303aa0)
-
-   
+   All the operation and UI is very simple. After successfully delete of saved record just simple alert message is shown now.
+   You can show any popup modal for this or as project requirement.
 
 
-    
+## Conclusion
 
+- Create a ASP.Net Core project from scratch.
+- Create a Vue.js project from scratch.
+- Create code first database migration.
+- Basic Vue.js componet and structure.
+- ASP.Net Core structure with repository pattern.
+- xUnit testing.
+- Simple Bootstrap design.
+- Display data on list and delete.
+- Add User form with reusable component
+- Custom pagination
+- How to deploy on heroku.
+  
