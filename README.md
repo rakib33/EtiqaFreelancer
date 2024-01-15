@@ -790,6 +790,136 @@ by following npm command.
 ```
 npm install vue-tel-input
 ```
+## TelephoneInpuField.vue
+vue-tel-input is used here. This componet is responsible for telephone data . you can customize as your project need.
+
+```
+<template>
+     <div class="form-group mb-3 mt-3">
+        <label :for="id">{{ label }}</label>        
+        <vue-tel-input
+        class="form-control telephone-field"
+        :id="id"
+        :name="id"        
+        v-model="phone"
+        v-bind="bindProps"
+        @input="updateInputValue"    
+        @validate="phoneObject"    
+        mode="international">
+        </vue-tel-input>
+        <div v-if="inputTouch&&!isValid" class="error-message">{{ error }}</div>
+    </div>
+</template>
+<script>
+  import { VueTelInput } from 'vue-tel-input';
+  import 'vue-tel-input/vue-tel-input.css';
+export default {
+    components:{
+        VueTelInput,
+    },
+    props:{
+        id: {
+      type: String,
+      required: true,
+    },
+    label: {
+      type: String,
+      required: true,
+    },
+    className:{
+     type: String,
+     default:'',
+    },
+    required:{
+      type: Boolean, default: false
+    },
+    validator: {
+      type: Function,
+      default: () => () => false,
+    },
+    placeholder:{
+      type: String,
+      required:false,
+      default:'',
+    }, 
+    
+    },
+    data(){
+        return{
+            phone:'',
+            error:'',
+            inputTouch:false,
+            isValid:false,
+            bindProps:{
+                mode: "international",
+                defaultCountry: "BD",               
+                preferredCountries: ["USA", "BD"],                
+                inputOptions: {
+                showDialCode: true
+                },
+                
+            }
+        }
+    },
+    
+    methods:{
+        updateInputValue() {
+        this.inputTouch = true;       
+        this.$emit('update:modelValue', this.phone);
+        },
+        phoneObject: function(object) {
+        console.log('phoneObject: ' +object.valid);
+        this.isValid = object.valid;
+        if(object.valid === true)
+          {
+            this.error ='';
+          }else{
+            this.error='Invalid phone number.';
+          }
+        }
+    }
+   
+}
+</script>
+
+```
+## Pagination
+I am using custome pagination component . Just call this component any table or data list with property currentPage,totalPages, and changePage . changePage is a 
+method where you will customized your pagination.
+
+```
+<!-- CustomPagination.vue -->
+<template>
+    <nav aria-label="Page navigation" style="cursor:pointer;">
+      <ul class="pagination">
+        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+          <a class="page-link" @click="changePage(currentPage - 1)" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item" v-for="page in totalPages" :key="page" :class="{ active: page === currentPage }">
+          <a class="page-link" @click="changePage(page)">{{ page }}</a>
+        </li>
+        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+          <a class="page-link" @click="changePage(currentPage + 1)" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </template>
+  
+  <script>
+  export default {
+    props: {
+      currentPage: Number,
+      totalPages: Number,
+      changePage: Function,
+    },
+  };
+  </script>
+  
+```
 
 # Build 
 To create a production build open visual studio code terminal. short key [Ctrl+Shift+~] and run this command. This will create a dist folder.
