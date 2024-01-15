@@ -519,7 +519,8 @@ npm run serve
 ## Structure
 This simple Vue.js vue client project structure is looks like,
 
-![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/e2b9cbdd-41ee-413c-9262-2444ae2fbfc9)
+![image](https://github.com/rakib33/Freelancer/assets/10026710/5cc1ccdb-4cf3-4c98-b151-e0bfbf36eda3)
+
 
 # Components
 
@@ -615,31 +616,41 @@ export default {
 service has all api calling method and business calculation. This method is called from component according their need.
 
 ```
-<template>
-  <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <router-link to="/" class="navbar-brand">Users</router-link>
-      <div class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link to="/users" class="nav-link">Users</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/add" class="nav-link">Add</router-link>
-        </li>
-      </div>
-    </nav>
+import http from '../http-common';
 
-    <div class="container mt-3">
-      <router-view />
-    </div>
-  </div>
-</template>
 
-<script>
-export default {
-  name: "app"
-};
-</script>
+class UserDataService {
+    getAll() {   
+      return http.get("/Users");
+    }
+  
+    get(id) {
+      return http.get(`/Users/${id}`);
+    }
+  
+    create(data) {    
+      return http.post("/Users",data);
+    }
+  
+    update(id, data) {
+      return http.put(`/Users/${id}`, data);
+    }
+  
+    delete(id) {
+      return http.delete(`/Users?id=${id}`);
+    }
+  
+    deleteAll() {
+      return http.delete(`/Users`);
+    }
+  
+    //key hear user name || email || phone no
+    findByKey(key) {
+      return http.get(`/Users?key=${key}`);
+    }
+  }
+  
+  export default new UserDataService();
 ```
 # Build 
 To create a production build open visual studio code terminal. short key [Ctrl+Shift+~] and run this command. This will create a dist folder.
