@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <PageLoader />
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <router-link to="/" class="navbar-brand">Users</router-link>
       <div class="navbar-nav mr-auto">
@@ -19,7 +20,11 @@
 </template>
 
 <script>
+import PageLoader from './components/PageLoader.vue';
 export default {
-  name: "app"
+  name: "app",
+  components:{
+    PageLoader,
+  }
 };
 </script>

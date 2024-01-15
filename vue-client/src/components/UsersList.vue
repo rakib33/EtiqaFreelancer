@@ -116,7 +116,7 @@ export default {
     return {
       currentPage:1,
       totalPages:5,
-      itemPerPage:2,
+      itemPerPage:5,
       startIndex:0,
       users: [],
       paginatedUser:[],
@@ -150,10 +150,11 @@ export default {
         console.log('get method is called');
         this.isLoading = true;
         this.progress = 0;
-        this.getUserDataJsonFile();
-        //this.getUserDataFromServer();
+       // await new Promise(resolve=>setTimeout(resolve,500));
+        //this.getUserDataJsonFile();
+        this.getUserDataFromServer();
     },
-    getUserDataJsonFile(){
+   async getUserDataJsonFile(){
           this.users = userData.data;
           this.status = userData.status;
           console.log(this.status);
