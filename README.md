@@ -992,12 +992,11 @@ And Main branch has local data storage.Hear we Use MS SQL Server. Heroku Project
 12. Now click the Setting tab.Though we are using ASP.NET Core Web API we need a build pack to build our project on heroku. There are many third party build pack.
     I am choose this build pack for my application https://github.com/jincod/dotnetcore-buildpack
 
-   ![DeployBranch](https://github.com/rakib33/Freelancer/assets/10026710/b13f962b-475d-4b66-bf6a-8b1e8c444df7)
-
+   ![image](https://github.com/rakib33/Freelancer/assets/10026710/6a49c7d1-0cba-4318-8e5d-2af09d08d23c)
 
 13. Now everything is ready to deploy our project. Go to deploy tab and select deploy barnch from dropdown if not selected yet and click deploy barnch button.
 
-   ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/e3112944-3455-4624-9ebf-8260df999b48)
+  ![DeployBranch](https://github.com/rakib33/Freelancer/assets/10026710/3b75be81-b1a1-4a92-9232-bd7052bbb023)
 
 14. Select the Activity tab where all depoloyment history is recorded. When new deployment is inprogress you can check here.
 
