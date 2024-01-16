@@ -1046,4 +1046,4 @@ And Main branch has local data storage.Hear we Use MS SQL Server. Heroku Project
 - How to deploy on heroku.
   
 This project is very useful for begginer or intermeddiate developper. You don't need to know much more knowledge of ASP.NET Core or Vue.js.
-Just install Visual studio 2022 and follow the step. Hope this will helpful to start a project from scratch. 
+Hope this will helpful to start a project from scratch. 
