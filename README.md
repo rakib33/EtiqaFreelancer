@@ -985,24 +985,24 @@ And Main branch has local data storage.Hear we Use MS SQL Server. Heroku Project
 
     ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/eaf3515d-0d2a-4f8b-b926-1c110b68209a)
     
-11. Select a branch name for deployment with automatic deploy so that each time when any push is done it will automatically deploy on this site.
+10. Select a branch name for deployment with automatic deploy so that each time when any push is done it will automatically deploy on this site.
 
    ![deploy](https://github.com/rakib33/Freelancer/assets/10026710/3733beef-cf2e-43c8-8a41-827a727a2e16)
 
-12. Now click the Setting tab.Though we are using ASP.NET Core Web API we need a build pack to build our project on heroku. There are many third party build pack.
+11. Now click the Setting tab.Though we are using ASP.NET Core Web API we need a build pack to build our project on heroku. There are many third party build pack.
     I am choose this build pack for my application https://github.com/jincod/dotnetcore-buildpack
 
    ![image](https://github.com/rakib33/Freelancer/assets/10026710/6a49c7d1-0cba-4318-8e5d-2af09d08d23c)
 
-13. Now everything is ready to deploy our project. Go to deploy tab and select deploy barnch from dropdown if not selected yet and click deploy barnch button.
+12. Now everything is ready to deploy our project. Go to deploy tab and select deploy barnch from dropdown if not selected yet and click deploy barnch button.
 
   ![DeployBranch](https://github.com/rakib33/Freelancer/assets/10026710/3b75be81-b1a1-4a92-9232-bd7052bbb023)
 
-14. Select the Activity tab where all depoloyment history is recorded. When new deployment is inprogress you can check here.
+13. Select the Activity tab where all depoloyment history is recorded. When new deployment is inprogress you can check here.
 
     ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/668dc744-2414-4ea2-bcd3-adc6e7191dd3)
 
-15. Click the Open App button and see your project is on live.
+14. Click the Open App button and see your project is on live.
 
     ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/e549a7bb-7a2f-4c15-adbc-cd475ceeb013)
 
