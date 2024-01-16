@@ -1036,12 +1036,14 @@ And Main branch has local data storage.Hear we Use MS SQL Server. Heroku Project
 - Create a ASP.Net Core project from scratch.
 - Create a Vue.js project from scratch.
 - Create code first database migration.
-- Basic Vue.js componet and structure.
-- ASP.Net Core structure with repository pattern.
+- Basic Vue.js component and structure.
+- ASP.Net Core repository pattern Dependency Injection configuration.
 - xUnit testing.
 - Simple Bootstrap design.
-- Display data on list and delete.
-- Add User form with reusable component
-- Custom pagination
+- Display data on list and delete option.
+- Add User form with reusable component.
+- Custom pagination.
 - How to deploy on heroku.
   
+This project is very useful for begginer or intermeddiate developper. You don't need to know much more knowledge of ASP.NET Core or Vue.js.
+Just install Visual studio 2022 and follow the step. Hope this will helpful to start a project from scratch. 
