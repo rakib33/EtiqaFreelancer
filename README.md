@@ -987,7 +987,7 @@ And Main branch has local data storage.Hear we Use MS SQL Server. Heroku Project
     
 11. Select a branch name for deployment with automatic deploy so that each time when any push is done it will automatically deploy on this site.
 
-    ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/ac4852c5-6945-439d-939c-069fb4cdbea9)
+   ![deploy](https://github.com/rakib33/Freelancer/assets/10026710/3733beef-cf2e-43c8-8a41-827a727a2e16)
 
 12. Now click the Setting tab.Though we are using ASP.NET Core Web API we need a build pack to build our project on heroku. There are many third party build pack.
     I am choose this build pack for my application https://github.com/jincod/dotnetcore-buildpack
