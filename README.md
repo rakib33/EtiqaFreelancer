@@ -984,9 +984,7 @@ And Main branch has local data storage.Hear we Use MS SQL Server. Heroku Project
 10. Now select the deploy tab on Heroku and select your github repository
 
     ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/eaf3515d-0d2a-4f8b-b926-1c110b68209a)
-
-    ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/23197275-fcc6-490c-996b-c03919f236de)
-
+    
 11. Select a branch name for deployment with automatic deploy so that each time when any push is done it will automatically deploy on this site.
 
     ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/ac4852c5-6945-439d-939c-069fb4cdbea9)
@@ -994,7 +992,8 @@ And Main branch has local data storage.Hear we Use MS SQL Server. Heroku Project
 12. Now click the Setting tab.Though we are using ASP.NET Core Web API we need a build pack to build our project on heroku. There are many third party build pack.
     I am choose this build pack for my application https://github.com/jincod/dotnetcore-buildpack
 
-    ![image](https://github.com/rakib33/EtiqaFreelancer/assets/10026710/0ad2cd94-0079-4c48-914b-8d1a3e5e96c3)
+   ![DeployBranch](https://github.com/rakib33/Freelancer/assets/10026710/b13f962b-475d-4b66-bf6a-8b1e8c444df7)
+
 
 13. Now everything is ready to deploy our project. Go to deploy tab and select deploy barnch from dropdown if not selected yet and click deploy barnch button.
 
